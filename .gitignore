@@ -8,9 +8,6 @@
 .buildlog/
 .history
 .svn/
-app/ios/*
-app/android/*
-app/.metadata
 app/build/*
 
 # IntelliJ related
