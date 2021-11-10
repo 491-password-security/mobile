@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'LoginPage.dart';
 
+import 'package:mobile/route.dart' as route;
+
 class InitialPage extends StatefulWidget {
   @override
   State<InitialPage> createState() => initialPageState();
@@ -78,6 +80,18 @@ class initialPageState extends State<InitialPage> {
           borderRadius: BorderRadius.circular(15),
           child: CreateButton("Register", 2),
         ),
+        const SizedBox(height: 30),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: TextButton(
+              style: TextButton.styleFrom(
+              padding: const EdgeInsets.all(16.0),
+              primary: Colors.white,
+                textStyle: const TextStyle(fontSize: 20),
+              ),
+              onPressed: () => Navigator.pushNamed(context, 'HomePage'),
+              child: Text('goto home'),),
+        ),
       ],
     );
   }
@@ -99,8 +113,8 @@ class initialPageState extends State<InitialPage> {
         ),
         TextButton(
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.all(16.0),
-            primary: Colors.white,
+          padding: const EdgeInsets.all(16.0),
+          primary: Colors.white,
             textStyle: const TextStyle(fontSize: 20),
           ),
           onPressed: () => {

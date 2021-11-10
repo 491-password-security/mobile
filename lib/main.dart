@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/initialscreen/InitialPage.dart';
+import 'route.dart' as route;
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white,
       ),
-      home: InitialPage(),
+      onGenerateRoute: route.controller,
+      initialRoute: "InitialPage",
     );
   }
 }
