@@ -1,9 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'LoginPage.dart';
-
-import 'package:mobile/route.dart' as route;
 
 class InitialPage extends StatefulWidget {
   @override
@@ -26,7 +23,7 @@ class initialPageState extends State<InitialPage> {
         posY = windowHeight;
         break;
       case 1:
-        posY = 500;
+        posY = 300;
     }
 
     screen = FirstScreen(context);
@@ -34,23 +31,27 @@ class initialPageState extends State<InitialPage> {
   }
 
   Widget FirstScreen(BuildContext context) {
-    return Stack(
-      children: [
-        Column(
+    return Material(
+        color: Colors.black,
+        child: Stack(
           children: [
-            Container(
-              alignment: Alignment.topCenter,
-              child: Logo(),
-            ),
-            Container(
+            Column(
+              children: [
+                Container(
+                  alignment: Alignment.topCenter,
+                  child: Logo(),
+                ),
+                /* Container(
               alignment: Alignment(0, 100),
-              child: InitialButtons(),
+              child: CreateInitialButton(),
+            ),*/
+                CreateInitialButton("Login", 1),
+                CreateInitialButton("Register", 1),
+              ],
             ),
+            LoginBox(posY),
           ],
-        ),
-        LoginBox(posY),
-      ],
-    );
+        ));
   }
 
   Widget Logo() {
@@ -67,36 +68,19 @@ class initialPageState extends State<InitialPage> {
     );
   }
 
-  Widget InitialButtons() {
+  Widget CreateInitialButton(String name, int i) {
     return Column(
       children: [
         const SizedBox(height: 30),
         ClipRRect(
           borderRadius: BorderRadius.circular(15),
-          child: CreateButton("Login", 1),
-        ),
-        const SizedBox(height: 30),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: CreateButton("Register", 2),
-        ),
-        const SizedBox(height: 30),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: TextButton(
-              style: TextButton.styleFrom(
-              padding: const EdgeInsets.all(16.0),
-              primary: Colors.white,
-                textStyle: const TextStyle(fontSize: 20),
-              ),
-              onPressed: () => Navigator.pushNamed(context, 'HomePage'),
-              child: Text('goto home'),),
+          child: CreateButtonHelper(name, i),
         ),
       ],
     );
   }
 
-  Widget CreateButton(String buttonName, int i) {
+  Widget CreateButtonHelper(String buttonName, int i) {
     return Stack(
       children: <Widget>[
         Positioned.fill(
@@ -113,8 +97,8 @@ class initialPageState extends State<InitialPage> {
         ),
         TextButton(
           style: TextButton.styleFrom(
-          padding: const EdgeInsets.all(16.0),
-          primary: Colors.white,
+            padding: const EdgeInsets.all(16.0),
+            primary: Colors.white,
             textStyle: const TextStyle(fontSize: 20),
           ),
           onPressed: () => {
@@ -125,6 +109,54 @@ class initialPageState extends State<InitialPage> {
           child: Text(buttonName),
         ),
       ],
+    );
+  }
+
+  Widget LoginBox(double posY) {
+    return Stack(
+      children: [
+        AnimatedContainer(
+          duration: Duration(milliseconds: 1000),
+          curve: Curves.fastLinearToSlowEaseIn,
+          //color: Colors.grey,
+          transform: Matrix4.translationValues(0, posY, 1),
+          decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(height: 30),
+              LoginAndRegisterFields("Username", false),
+              LoginAndRegisterFields("Password", false),
+              const SizedBox(height: 50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CreateInitialButton("Login", 1),
+                  CreateInitialButton("Back", 0)
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget LoginAndRegisterFields(String tmp, bool tmp2) {
+    return Flexible(
+      child: TextField(
+        obscureText: tmp2,
+        decoration: InputDecoration(
+          fillColor: Colors.blueGrey,
+          filled: true,
+          border: OutlineInputBorder(),
+          labelText: tmp,
+          hintText: tmp,
+        ),
+      ),
     );
   }
 }
