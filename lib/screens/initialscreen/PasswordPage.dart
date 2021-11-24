@@ -50,7 +50,7 @@ class PasswordPageState extends State<PasswordPage> {
                   const SizedBox(height: 50),
                   LoginAndRegisterFields("Password", false),
                   const SizedBox(height: 50),
-                  CreateInitialButton("Login", 1),
+                  CreateInitialButton("Login"),
                 ],
               ),
             ),
@@ -72,19 +72,19 @@ class PasswordPageState extends State<PasswordPage> {
     );
   }
 
-  Widget CreateInitialButton(String name, int i) {
+  Widget CreateInitialButton(String name) {
     return Column(
       children: [
         const SizedBox(height: 30),
         ClipRRect(
           borderRadius: BorderRadius.circular(15),
-          child: CreateButtonHelper(name, i),
+          child: CreateButtonHelper(name),
         ),
       ],
     );
   }
 
-  Widget CreateButtonHelper(String buttonName, int i) {
+  Widget CreateButtonHelper(String buttonName) {
     return Stack(
       children: <Widget>[
         Positioned.fill(
@@ -107,46 +107,10 @@ class PasswordPageState extends State<PasswordPage> {
           ),
           onPressed: () => {
             setState(() {
-              state = i;
+              Navigator.pushReplacementNamed(context, "HomePage");
             }),
           },
           child: Text(buttonName),
-        ),
-      ],
-    );
-  }
-
-  Widget LoginBox(double posY) {
-    return Stack(
-      children: [
-        AnimatedContainer(
-          duration: Duration(milliseconds: 1000),
-          curve: Curves.fastLinearToSlowEaseIn,
-          //color: Colors.grey,
-          transform: Matrix4.translationValues(0, posY, 1),
-          decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.8),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 30),
-              LoginAndRegisterFields("OTP", true),
-              const SizedBox(height: 20),
-              //LoginAndRegisterFields("Password", false),
-              const SizedBox(height: 30),
-              Row(
-                //mainAxisSize: MainAxisSize.min,
-                //crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CreateInitialButton("Submit", 1),
-                  CreateInitialButton("Back", 0)
-                ],
-              ),
-            ],
-          ),
         ),
       ],
     );
