@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'screens/initialscreen/InitialPage.dart';
+import 'screens/initialscreen/Entry.dart';
+import 'screens/initialscreen/PopUpDesign.dart';
+import 'screens/initialscreen/SimpleDesign.dart';
+import 'screens/initialscreen/OTPpage.dart';
+import 'screens/initialscreen/PasswordPage.dart';
 import 'screens/HomeScreen/HomePage.dart';
 
 class DefaultPage extends StatefulWidget {
@@ -16,8 +21,9 @@ class defaultPageState extends State<DefaultPage> {
 }
 
 var routes = {
-  'InitialPage': () => InitialPage(),
+  'OTPpage': () => OTPpage(),
   'HomePage': () => HomePage(),
+  'PasswordPage': () => PasswordPage(),
 };
 
 Route<dynamic> controller(RouteSettings settings) {

@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
       ),
       onGenerateRoute: route.controller,
-      initialRoute: "InitialPage",
+      initialRoute: "OTPpage",
     );
   }
 }

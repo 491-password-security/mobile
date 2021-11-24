@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 
-class InitialPage extends StatefulWidget {
+class PasswordPage extends StatefulWidget {
   @override
-  State<InitialPage> createState() => initialPageState();
+  State<PasswordPage> createState() => PasswordPageState();
 }
 
-class initialPageState extends State<InitialPage> {
+class PasswordPageState extends State<PasswordPage> {
   int state = 0;
   double windowHeight = 0;
   double windowWidth = 0;
@@ -18,13 +18,13 @@ class initialPageState extends State<InitialPage> {
     var screen;
     windowHeight = MediaQuery.of(context).size.height;
     windowWidth = MediaQuery.of(context).size.width;
-    switch (state) {
+    /* switch (state) {
       case 0:
         posY = windowHeight;
         break;
       case 1:
         posY = 300;
-    }
+    }*/
 
     screen = FirstScreen(context);
     return screen;
@@ -47,12 +47,13 @@ class initialPageState extends State<InitialPage> {
                     alignment: Alignment.topCenter,
                     child: Logo(),
                   ),
+                  const SizedBox(height: 50),
+                  LoginAndRegisterFields("Password", false),
+                  const SizedBox(height: 50),
                   CreateInitialButton("Login", 1),
-                  CreateInitialButton("Register", 1),
                 ],
               ),
             ),
-            LoginBox(posY),
           ],
         ));
   }
@@ -131,9 +132,9 @@ class initialPageState extends State<InitialPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SizedBox(height: 30),
-              LoginAndRegisterFields("Username", false),
+              LoginAndRegisterFields("OTP", true),
               const SizedBox(height: 20),
-              LoginAndRegisterFields("Password", false),
+              //LoginAndRegisterFields("Password", false),
               const SizedBox(height: 30),
               Row(
                 //mainAxisSize: MainAxisSize.min,
