@@ -1,0 +1,3 @@
+[submodule "crypto"]
+	path = crypto
+	url = git@github.com:491-password-security/crypto.git
