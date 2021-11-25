@@ -10,6 +10,9 @@ import 'package:http/http.dart' as http;
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+//import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_core/firebase_core.dart';
+
 class OTPpage extends StatefulWidget {
   @override
   State<OTPpage> createState() => OTPpageState();
@@ -71,6 +74,7 @@ class OTPpageState extends State<OTPpage> {
       String refreshToken = jsonDecode(response.body)['data']['refresh_token'];
       box.put('access_token', accessToken);
       box.put('refresh_token', refreshToken);
+      // UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
       /*print(accessToken);
       print(box.get('access_token'));
       print(refreshToken);

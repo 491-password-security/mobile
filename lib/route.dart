@@ -6,7 +6,12 @@ import 'screens/initialscreen/PopUpDesign.dart';
 import 'screens/initialscreen/SimpleDesign.dart';
 import 'screens/initialscreen/OTPpage.dart';
 import 'screens/initialscreen/PasswordPage.dart';
-import 'screens/HomeScreen/HomePage.dart';
+import 'screens/HomeScreen/home.dart';
+import 'screens/Settings/settings.dart';
+import 'screens/HomeScreen/home.dart';
+
+//import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_core/firebase_core.dart';
 
 class DefaultPage extends StatefulWidget {
   @override
@@ -21,13 +26,22 @@ class defaultPageState extends State<DefaultPage> {
 }
 
 var routes = {
+  'SettingsPage': () => SettingsPage(),
   'OTPpage': () => OTPpage(),
   'HomePage': () => HomePage(),
   'PasswordPage': () => PasswordPage(),
 };
 
 Route<dynamic> controller(RouteSettings settings) {
-  var page = routes[settings.name] ?? () => DefaultPage();
+  var page;
+  /*var auth = FirebaseAuth.instance;
+  User? currentUser = auth.currentUser;
+  if (currentUser == null) {
+    page = routes['OTPpage'];
+  } else {
+    page = routes[settings.name] ?? () => DefaultPage();
+  }*/
+  page = routes[settings.name] ?? () => DefaultPage();
   var rv = MaterialPageRoute(builder: (context) => page());
   return rv;
 }
