@@ -28,7 +28,7 @@
 
 ## TO-DO
 - [X] Initialize GitHub repo
-- [ ] Home Screens for Andorid and IOS
-- [ ] Login Screens for Andorid and IOS
+- [X] Home Screens for Andorid and IOS
+- [X] Login Screens for Andorid and IOS
 - [ ] Setup Tests
 - [ ] Start Documentation
