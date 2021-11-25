@@ -48,7 +48,7 @@ class PasswordPageState extends State<PasswordPage> {
                     child: Logo(),
                   ),
                   const SizedBox(height: 50),
-                  LoginAndRegisterFields("Password", false),
+                  LoginAndRegisterFields("Password", true),
                   const SizedBox(height: 50),
                   CreateInitialButton("Login"),
                 ],
