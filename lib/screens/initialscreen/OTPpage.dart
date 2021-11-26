@@ -9,9 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mobile/globals.dart' as globals;
 
-//import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:firebase_core/firebase_core.dart';
 
 class OTPpage extends StatefulWidget {
   @override
@@ -58,7 +57,7 @@ class OTPpageState extends State<OTPpage> {
   }
 
   void submitOTP(String email, String otpCode) async {
-    var box = await Hive.openBox('data');
+    var box = globals.tokenStore;
     final response = await http.post(
       Uri.parse(baseUrl + "/verify-otp"),
       headers: <String, String>{
@@ -74,7 +73,6 @@ class OTPpageState extends State<OTPpage> {
       String refreshToken = jsonDecode(response.body)['data']['refresh_token'];
       box.put('access_token', accessToken);
       box.put('refresh_token', refreshToken);
-      // UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
       /*print(accessToken);
       print(box.get('access_token'));
       print(refreshToken);

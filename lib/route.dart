@@ -10,8 +10,11 @@ import 'screens/HomeScreen/home.dart';
 import 'screens/Settings/settings.dart';
 import 'screens/HomeScreen/home.dart';
 
-//import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:firebase_core/firebase_core.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'dart:io';
+
+import 'globals.dart' as globals;
 
 class DefaultPage extends StatefulWidget {
   @override
@@ -32,16 +35,18 @@ var routes = {
   'PasswordPage': () => PasswordPage(),
 };
 
+
 Route<dynamic> controller(RouteSettings settings) {
   var page;
-  /*var auth = FirebaseAuth.instance;
-  User? currentUser = auth.currentUser;
-  if (currentUser == null) {
+  bool value = globals.tokenStore.containsKey('access_token');
+  if(!value){
     page = routes['OTPpage'];
-  } else {
+  }else if(value && settings.name == 'OTPpage'){
+    page = routes['PasswordPage'];
+  }else{
     page = routes[settings.name] ?? () => DefaultPage();
-  }*/
-  page = routes[settings.name] ?? () => DefaultPage();
+  }
+  
   var rv = MaterialPageRoute(builder: (context) => page());
   return rv;
 }

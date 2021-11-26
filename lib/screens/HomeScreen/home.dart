@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'dart:collection';
 
 import 'package:mobile/route.dart';
+import 'package:mobile/theme.dart';
 
 Map<String, fa.FaIcon> icons = {
   'facebook': const fa.FaIcon(fa.FontAwesomeIcons.facebook),
@@ -11,6 +12,11 @@ Map<String, fa.FaIcon> icons = {
   'gmail': const fa.FaIcon(fa.FontAwesomeIcons.google),
   'default': const fa.FaIcon(fa.FontAwesomeIcons.idCard)
 };
+/*
+extension customDarkTheme on ColorScheme{
+  Color get smallBoxColor1 => (brightness == Brightness.light) ? Colors.blue : Colors.grey[400]!;
+}
+*/
 
 fa.FaIcon getIcon(String name) {
   if (icons.containsKey(name)) {
@@ -100,10 +106,10 @@ class HomePageState extends State<HomePage> {
           height: 50,
           padding: const EdgeInsets.only(left: 5, right: 5),
           decoration: BoxDecoration(
-            color: Colors.grey,
+            color: Theme.of(context).colorScheme.itemBoxColor,
             borderRadius: BorderRadius.circular(3),
             boxShadow: const <BoxShadow>[
-              BoxShadow(color: Colors.black, spreadRadius: 1),
+              BoxShadow(spreadRadius: 1),
             ],
           ),
           child: InkWell(
@@ -138,14 +144,14 @@ class HomePageState extends State<HomePage> {
                   width: MediaQuery.of(context).size.width,
                   height: 40,
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.snackBarColor,
                       borderRadius: BorderRadius.circular(8)),
                   child:
                       const Center(child: Text("Password copied to clipboard")),
                 ),
               ));
             },
-            splashColor: Colors.white24,
+            //splashColor: Colors.white24,
             highlightColor: Colors.transparent,
           )),
     );
