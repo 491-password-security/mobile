@@ -41,7 +41,7 @@ class ThemeChanger with ChangeNotifier{
   ThemeChanger(this._themeData){
     window.onPlatformBrightnessChanged = () {
      var brightness = window.platformBrightness; 
-     setTheme((brightness == Brightness.light) ? lightTheme : globals.preferencesStore);
+     setTheme((brightness == Brightness.light) ? lightTheme : darkTheme);
     };
   }
 
