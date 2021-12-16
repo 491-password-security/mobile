@@ -3,19 +3,21 @@ import { ImageBackground,Button, StyleSheet, Text, TextInput, View ,Image} from 
 import * as LocalAuthentication from 'expo-local-authentication';
 import MultitaskBlur from "react-native-multitask-blur";
 import * as Keychain from "react-native-keychain";
+import { useTheme } from '@react-navigation/native';
 var crypto = require('crypto-helper-ku');
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 export default function LoginScreen({navigation,props}) {
   MultitaskBlur.blur();
   const [passInput, setPassInput] = useState('');
+  const { colors } = useTheme();
 
 
   /*const deneme = async () => {
     // login api call here
     const credentials = await Keychain.getGenericPassword();
-    if (credentials) {
+    if (credentials) {r
       console.log(
         'Credentials successfully loaded for user ' + credentials.username
       );
@@ -39,8 +41,6 @@ export default function LoginScreen({navigation,props}) {
     }
     navigation.navigate('PasswordScreen');
   }
-
- 
 
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
 
@@ -112,22 +112,26 @@ export default function LoginScreen({navigation,props}) {
     masterPass = credentials.masterPass;
     navigation.navigate('PasswordScreen', { name: 'PasswordScreen' });
   };
+  
+  
   return (
     <View style={styles.container}>
       <View>
-       <Image style={styles.logoimage} source={require('../assets/lock.png')}       />
-        <View style= {{paddingHorizontal:80}}> 
+       <Image style={styles.logoimage} source={require('../assets/lock2.png')}       />
+        <View style= {{paddingVertical:100}}> 
         <TextInput
+        backgroundColor = {colors.text}
         placeholder = "Please Enter Master Password"
         secureTextEntry={true}
         onChangeText={passInput => setPassInput(passInput)}
-        defaultValue={passInput}
-        style = {styles.text}/>
+        defaultValue={passInput}r
+        style ={styles.text}
+       />
         </View >
-        <View style= {{paddingVertical:40,flexDirection:'row',justifyContent:'space-evenly'}}> 
-        <Button color = 'mediumslateblue' title = "Login"  onPress ={handleLogin}   />
+        <View style= {{paddingVertical:20,flexDirection:'row',justifyContent:'space-evenly'}}> 
+        <Button color = {colors.primary} title = "Login"  onPress ={handleLogin}   />
         </View>
-        <Button color = 'mediumslateblue' title = "Login with Biometrics" onPress ={handleBiometricAuth}  />
+        <Button color = {colors.primary} title = "Login with Biometrics" onPress ={handleBiometricAuth}  />
       </View>
     </View>
   );
@@ -147,8 +151,8 @@ const styles = StyleSheet.create({
   },
   logoimage: {
     
-    width:400,
-    height:400,
+    width:200,
+    height:200,
     alignSelf: 'center',
   },
   text: {
@@ -159,7 +163,6 @@ const styles = StyleSheet.create({
     height:50,
     fontSize: 12,
     fontWeight: "bold",
-    backgroundColor: "mediumslateblue",
     opacity: 0.7
   }
 });

@@ -3,11 +3,13 @@ import {Button, StyleSheet, Text, TextInput, View ,Image} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Appbar } from 'react-native-paper';
+import { useTheme } from '@react-navigation/native';
 
 
 
 export default function PasswordScreen({navigation}) {
   MultitaskBlur.blur();
+  const { colors } = useTheme();
 
   /*const deneme = async () => {
     // login api call here
@@ -28,15 +30,17 @@ export default function PasswordScreen({navigation}) {
       <View>
         <View style= {{paddingHorizontal:80}}> 
         <TextInput
+        backgroundColor = {colors.text}
         placeholder = "Username"
         style = {styles.text}/>
         <View style= {{paddingVertical:5}}></View>
         <TextInput
+        backgroundColor = {colors.text}
         placeholder = "URL"
         style = {styles.text}/>
         </View >
         <View style= {{paddingVertical:40,flexDirection:'row',justifyContent:'space-evenly'}}> 
-        <Button color = 'mediumslateblue' title = "Get Password" />
+        <Button color = {colors.primary} title = "Get Password" />
         </View>
       </View>
     </View>
@@ -45,7 +49,7 @@ export default function PasswordScreen({navigation}) {
     
 const styles = StyleSheet.create({
   topBar: {
-    color: 'mediumslateblue',
+    backgroundColor: 'rgb(39, 59, 122)',
     position: 'absolute',
     left: 0,
     right: 0,
@@ -87,7 +91,6 @@ const styles = StyleSheet.create({
     height:50,
     fontSize: 12,
     fontWeight: "bold",
-    backgroundColor: "mediumslateblue",
     opacity: 0.7
   }
 });

@@ -11,13 +11,38 @@ const Stack = createNativeStackNavigator();
 
 //export const ThemeContext = React.createContext();
 
+const myLightTheme = {
+  dark: false,
+  colors: {
+    primary: 'rgb(39, 59, 122)',
+    secondary: 'rgb(18, 17, 73)',
+    background: 'rgb(253, 253, 253)',
+    card: 'rgb(255, 255, 255)',
+    text: 'rgb(235, 235, 235)',
+    border: 'rgb(0, 0, 0)',
+    notification: 'rgb(255, 69, 58)',
+  },
+};
+const myDarkTheme = {
+  dark: false,
+  colors: {
+    primary: 'rgb(39, 59, 122)',
+    secondary: 'rgb(18, 17, 73)',
+    background: 'rgb(0, 0, 0)',
+    card: 'rgb(255, 255, 255)',
+    text: 'rgb(235, 235, 235)',
+    border: 'rgb(0, 0, 0)',
+    notification: 'rgb(255, 69, 58)',
+  },
+};
+
 export default App = () => {
   const [theme, setTheme] = useState('dark');
   const themeData = { theme, setTheme };  
-  //const scheme = useColorScheme();
+  const scheme = useColorScheme();
 return (
   <ThemeContext.Provider value={themeData}>
-  <NavigationContainer theme={theme === 'dark' ? DarkTheme : DefaultTheme}>
+  <NavigationContainer theme={theme === 'light' ? myDarkTheme : myLightTheme}>
       <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName="LoginScreen" >
       <Stack.Screen name= "LoginScreen" component={LoginScreen} />
       <Stack.Screen name= "PasswordScreen" component={PasswordScreen} />

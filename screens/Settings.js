@@ -3,6 +3,7 @@ import {Button, StyleSheet, View } from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import {ThemeContext} from '../theme-context';
 import * as Keychain from "react-native-keychain";
+import { useTheme } from '@react-navigation/native';
 
 import { Appbar } from 'react-native-paper';
 
@@ -11,6 +12,7 @@ import { Appbar } from 'react-native-paper';
 export default function Settings({navigation}) {
   MultitaskBlur.blur();
   const { setTheme, theme } = React.useContext(ThemeContext);
+  const { colors } = useTheme();
 
   const handleLogout = async()=>{
     const logout = await Keychain.resetGenericPassword();
@@ -19,26 +21,24 @@ export default function Settings({navigation}) {
   }
 
   return (
-   
    <View style={styles.container}>
    <Appbar style={styles.topBar}>
       <Appbar.BackAction style={styles.appIcon} onPress={() => navigation.navigate('PasswordScreen', { name: 'PasswordScreen' })} />
       </Appbar>
         <Button
-          color='mediumslateblue'
+          color = {colors.primary}
           title="Dark Mode"
           onPress={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
-           <Button color = 'mediumslateblue' title = "Logout" onPress ={handleLogout}/>
+           <Button color = {colors.primary} title = "Logout" onPress ={handleLogout}/>
       </View>
 
 
   );
 }
     
-
 const styles = StyleSheet.create({
   topBar: {
-    color: 'mediumslateblue',
+    backgroundColor: 'rgb(39, 59, 122)',
     position: 'absolute',
     left: 0,
     right: 0,
