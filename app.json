@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "PasswordSecurity",
+    "slug": "PasswordSecurity",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "PasswordSecurity"
+}
