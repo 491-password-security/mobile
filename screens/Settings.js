@@ -1,35 +1,56 @@
-import React from 'react';
-import {Button, StyleSheet, View } from 'react-native';
+import React,{ useState, useEffect} from 'react';
+import {StyleSheet, View } from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import {ThemeContext} from '../theme-context';
 import * as Keychain from "react-native-keychain";
 import { useTheme } from '@react-navigation/native';
 
-import { Appbar } from 'react-native-paper';
-
-
+import { Appbar,Button ,Switch,Text,Divider} from 'react-native-paper';
 
 export default function Settings({navigation}) {
+  
   MultitaskBlur.blur();
   const { setTheme, theme } = React.useContext(ThemeContext);
   const { colors } = useTheme();
+
+
+  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
   const handleLogout = async()=>{
     const logout = await Keychain.resetGenericPassword();
     console.log({logout});
     navigation.navigate('LoginScreen');
   }
+  
+  const onToggleSwitch = ()=>{
+    setIsSwitchOn(!isSwitchOn);
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  }
 
+  
   return (
    <View style={styles.container}>
    <Appbar style={styles.topBar}>
       <Appbar.BackAction style={styles.appIcon} onPress={() => navigation.navigate('PasswordScreen', { name: 'PasswordScreen' })} />
+      <Appbar.Content title="Settings"/>
       </Appbar>
-        <Button
-          color = {colors.primary}
-          title="Dark Mode"
-          onPress={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
-           <Button color = {colors.primary} title = "Logout" onPress ={handleLogout}/>
+      <View>
+    <View style={{
+        flexDirection: "row",
+        height: 100,
+        padding: 20
+      }}>
+    <Text style={{ color: colors.primary,paddingHorizontal:30 }}>Dark Mode</Text>
+
+    <Switch color = {colors.primary} value={isSwitchOn} onValueChange={onToggleSwitch} />
+    </View>
+    <Divider />
+    <Button mode="contained" color = {colors.primary} onPress ={handleLogout} >
+    Logout
+    </Button>
+    <Divider />
+  </View>
+  
       </View>
 
 

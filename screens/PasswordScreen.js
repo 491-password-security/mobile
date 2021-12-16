@@ -1,8 +1,7 @@
 import React from 'react';
-import {Button, StyleSheet, Text, TextInput, View ,Image} from 'react-native';
+import {StyleSheet, Text, View ,Image} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Appbar } from 'react-native-paper';
+import { Appbar,TextInput, Button } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
 
 
@@ -19,28 +18,39 @@ export default function PasswordScreen({navigation}) {
         'Credentials successfully loaded for user ' + credentials.username
       );
     } 
-  }*/
+  }*/ 
 
   return (
     <View style={styles.container}>
         <Appbar style={styles.topBar}>  
       <Appbar.BackAction style={styles.appIcon} onPress={() => navigation.navigate('LoginScreen', { name: 'LoginScreen' })} />
+      <Appbar.Content title="Home"/>
       <Appbar.Action style={styles.appIconSettings} icon="cog" onPress={() => navigation.navigate('Settings', { name: 'Settings' })} />
       </Appbar>
       <View>
         <View style= {{paddingHorizontal:80}}> 
         <TextInput
-        backgroundColor = {colors.text}
-        placeholder = "Username"
-        style = {styles.text}/>
+        underlineColor={colors.primary}
+        activeUnderlineColor= {colors.primary}
+        left={<TextInput.Icon name="account"/>}
+        label = "Username"
+        placeholder = "Please Enter Your Username"
+        style ={styles.text}
+       />
         <View style= {{paddingVertical:5}}></View>
         <TextInput
-        backgroundColor = {colors.text}
-        placeholder = "URL"
-        style = {styles.text}/>
+        underlineColor={colors.primary}
+        activeUnderlineColor= {colors.primary}
+        left={<TextInput.Icon name="link"/>}
+        label = "URL"
+        placeholder = "Please Enter URL"
+        style ={styles.text}
+       />
         </View >
         <View style= {{paddingVertical:40,flexDirection:'row',justifyContent:'space-evenly'}}> 
-        <Button color = {colors.primary} title = "Get Password" />
+        <Button mode="contained" color = {colors.primary} >
+    Get Password
+  </Button>
         </View>
       </View>
     </View>
@@ -84,13 +94,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   text: {
-    borderColor: 'black', 
     alignSelf: 'center',
-    borderWidth: 1,
-    width:250,
-    height:50,
+    width:350,
+    height:100,
     fontSize: 12,
-    fontWeight: "bold",
-    opacity: 0.7
   }
 });

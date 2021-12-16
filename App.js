@@ -30,7 +30,7 @@ const myDarkTheme = {
     secondary: 'rgb(18, 17, 73)',
     background: 'rgb(0, 0, 0)',
     card: 'rgb(255, 255, 255)',
-    text: 'rgb(235, 235, 235)',
+    text: 'rgb(40, 45, 51)',
     border: 'rgb(0, 0, 0)',
     notification: 'rgb(255, 69, 58)',
   },

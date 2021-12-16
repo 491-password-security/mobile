@@ -1,17 +1,19 @@
-import React,{ useState, useEffect,Pressable }  from 'react';
-import { ImageBackground,Button, StyleSheet, Text, TextInput, View ,Image} from 'react-native';
+import React,{ useState, useEffect}  from 'react';
+import {StyleSheet, View ,Image} from 'react-native';
 import * as LocalAuthentication from 'expo-local-authentication';
 import MultitaskBlur from "react-native-multitask-blur";
 import * as Keychain from "react-native-keychain";
 import { useTheme } from '@react-navigation/native';
+import { TextInput,Button } from 'react-native-paper';
 var crypto = require('crypto-helper-ku');
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
+
 
 export default function LoginScreen({navigation,props}) {
   MultitaskBlur.blur();
   const [passInput, setPassInput] = useState('');
   const { colors } = useTheme();
+  const [hidePass, setHidePass] = useState(true);
+
 
 
   /*const deneme = async () => {
@@ -41,6 +43,12 @@ export default function LoginScreen({navigation,props}) {
     }
     navigation.navigate('PasswordScreen');
   }
+
+  const showPassword = async () => {
+    //if (privacy = )
+    privacy = false;
+  }
+
 
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
 
@@ -112,26 +120,34 @@ export default function LoginScreen({navigation,props}) {
     masterPass = credentials.masterPass;
     navigation.navigate('PasswordScreen', { name: 'PasswordScreen' });
   };
-  
+
   
   return (
     <View style={styles.container}>
       <View>
        <Image style={styles.logoimage} source={require('../assets/lock2.png')}       />
-        <View style= {{paddingVertical:100}}> 
+        <View style= {{paddingVertical:70}}> 
         <TextInput
-        backgroundColor = {colors.text}
+        underlineColor={colors.primary}
+        activeUnderlineColor= {colors.primary}
+        label = "Master Password"
         placeholder = "Please Enter Master Password"
-        secureTextEntry={true}
+        secureTextEntry={hidePass ? true : false}
+        left={<TextInput.Icon name="lock"/>}
+        right={<TextInput.Icon name="eye" onPress={() => setHidePass(!hidePass)} />}
         onChangeText={passInput => setPassInput(passInput)}
-        defaultValue={passInput}r
+        defaultValue={passInput}
         style ={styles.text}
        />
         </View >
-        <View style= {{paddingVertical:20,flexDirection:'row',justifyContent:'space-evenly'}}> 
-        <Button color = {colors.primary} title = "Login"  onPress ={handleLogin}   />
+        <View style= {{paddingVertical:40,flexDirection:'row',justifyContent:'space-evenly'}}> 
+        <Button mode="contained" color = {colors.primary} onPress ={handleLogin} >
+    Login
+  </Button>
         </View>
-        <Button color = {colors.primary} title = "Login with Biometrics" onPress ={handleBiometricAuth}  />
+        <Button mode="contained" color = {colors.primary} onPress ={handleBiometricAuth} >
+        Login with Biometrics
+  </Button>
       </View>
     </View>
   );
@@ -156,13 +172,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   text: {
-    borderColor: 'black', 
+    color: "black",
     alignSelf: 'center',
-    borderWidth: 1,
-    width:250,
-    height:50,
+    width:350,
+    height:100,
     fontSize: 12,
     fontWeight: "bold",
-    opacity: 0.7
-  }
+  },
 });
