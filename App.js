@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/LoginScreen';
 import PasswordScreen from './screens/PasswordScreen';
 import Settings from './screens/Settings';
+import PasswordGenerator from './screens/PasswordGenerator';
 import {ThemeContext} from './theme-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -51,6 +52,17 @@ function HomeTabs(){
         tabBarLabel: 'Vault',
         tabBarIcon: ({ color, size }) => (
           <FontAwesomeIcon name="user-secret" color={color} size={size}/>
+        ),
+      }}
+      />
+      
+      <Tab.Screen
+      name = "Generator"
+      component = {PasswordGenerator}
+      options={{
+        tabBarLabel: 'Generator',
+        tabBarIcon: ({ color, size }) => (
+          <FontAwesomeIcon name="cog" color={color} size={size}/>
         ),
       }}
       />
