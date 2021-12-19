@@ -11,6 +11,8 @@ import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNat
 export default function PasswordScreen({navigation}) {
   MultitaskBlur.blur();
   const { colors } = useTheme();
+  //const [urlInput, setUrlInput] = useState('');
+  //const [userInput, setUserInput] = useState('');
 
   /*const deneme = async () => {
     // login api call here
@@ -24,7 +26,14 @@ export default function PasswordScreen({navigation}) {
 
   return (
     <View style={styles.container} useTheme={colors}>
-      <Appbar style={styles.topBar}>  
+      <Appbar style={{
+            backgroundColor: colors.primary,
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            height:100
+          }}>  
         <Appbar.Content title="Home"/>
       </Appbar>
       <View>

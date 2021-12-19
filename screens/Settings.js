@@ -6,6 +6,7 @@ import * as Keychain from "react-native-keychain";
 import { useTheme } from '@react-navigation/native';
 
 import { Appbar,Button ,Switch,Text,Divider} from 'react-native-paper';
+import { color } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 export default function Settings({navigation}) {
   
@@ -30,7 +31,14 @@ export default function Settings({navigation}) {
   
   return (
    <View style={styles.container}>
-   <Appbar style={styles.topBar}>
+   <Appbar style={{
+            backgroundColor: colors.primary,
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            height:100
+          }}>
       {/* <Appbar.BackAction style={styles.appIcon} onPress={() => navigation.navigate('PasswordScreen', { name: 'PasswordScreen' })} /> */}
       <Appbar.Content title="Settings"/>
     </Appbar>
