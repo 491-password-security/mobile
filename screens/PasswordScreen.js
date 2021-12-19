@@ -3,6 +3,8 @@ import {StyleSheet, Text, View ,Image} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import { Appbar,TextInput, Button } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
+import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
+
 
 
 
@@ -21,37 +23,39 @@ export default function PasswordScreen({navigation}) {
   }*/ 
 
   return (
-    <View style={styles.container}>
-        <Appbar style={styles.topBar}>  
-      <Appbar.BackAction style={styles.appIcon} onPress={() => navigation.navigate('LoginScreen', { name: 'LoginScreen' })} />
-      <Appbar.Content title="Home"/>
-      <Appbar.Action style={styles.appIconSettings} icon="cog" onPress={() => navigation.navigate('Settings', { name: 'Settings' })} />
+    <View style={styles.container} useTheme={colors}>
+      <Appbar style={styles.topBar}>  
+        <Appbar.Content title="Home"/>
       </Appbar>
       <View>
         <View style= {{paddingHorizontal:80}}> 
-        <TextInput
-        underlineColor={colors.primary}
-        activeUnderlineColor= {colors.primary}
-        left={<TextInput.Icon name="account"/>}
-        label = "Username"
-        placeholder = "Please Enter Your Username"
-        style ={styles.text}
-       />
-        <View style= {{paddingVertical:5}}></View>
-        <TextInput
-        underlineColor={colors.primary}
-        activeUnderlineColor= {colors.primary}
-        left={<TextInput.Icon name="link"/>}
-        label = "URL"
-        placeholder = "Please Enter URL"
-        style ={styles.text}
-       />
-        </View >
-        <View style= {{paddingVertical:40,flexDirection:'row',justifyContent:'space-evenly'}}> 
-        <Button mode="contained" color = {colors.primary} >
-    Get Password
-  </Button>
+          <TextInput
+            underlineColor={colors.text}
+            activeUnderlineColor= {colors.text}
+            left={<TextInput.Icon name="account"/>}
+            label = "Username"
+            placeholder = "Enter Your Username"
+            style ={styles.text}
+          />
+
+          <View style= {{paddingVertical:5}}></View>
+          
+          <TextInput
+            underlineColor={colors.text}
+            activeUnderlineColor= {colors.text}
+            left={<TextInput.Icon name="link"/>}
+            label = "URL"
+            placeholder = "Enter URL"
+            style ={styles.text}
+          />
         </View>
+        
+        <View style= {{paddingVertical:40, flexDirection:'row', justifyContent:'space-evenly'}}> 
+          <Button mode="contained" color = {colors.primary} >
+          Get Password
+          </Button>
+        </View>
+      
       </View>
     </View>
   );
@@ -59,7 +63,6 @@ export default function PasswordScreen({navigation}) {
     
 const styles = StyleSheet.create({
   topBar: {
-    backgroundColor: 'rgb(39, 59, 122)',
     position: 'absolute',
     left: 0,
     right: 0,
@@ -88,7 +91,6 @@ const styles = StyleSheet.create({
     height:'100%'
   },
   logoimage: {
-    
     width:400,
     height:400,
     alignSelf: 'center',

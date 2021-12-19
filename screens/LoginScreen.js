@@ -41,7 +41,7 @@ export default function LoginScreen({navigation,props}) {
     if (!credentials){
       await Keychain.setGenericPassword(username, masterPass);
     }
-    navigation.navigate('PasswordScreen');
+    navigation.navigate('Home');
   }
 
   const showPassword = async () => {

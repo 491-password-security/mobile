@@ -31,27 +31,27 @@ export default function Settings({navigation}) {
   return (
    <View style={styles.container}>
    <Appbar style={styles.topBar}>
-      <Appbar.BackAction style={styles.appIcon} onPress={() => navigation.navigate('PasswordScreen', { name: 'PasswordScreen' })} />
+      {/* <Appbar.BackAction style={styles.appIcon} onPress={() => navigation.navigate('PasswordScreen', { name: 'PasswordScreen' })} /> */}
       <Appbar.Content title="Settings"/>
-      </Appbar>
+    </Appbar>
       <View>
-    <View style={{
-        flexDirection: "row",
-        height: 100,
-        padding: 20
-      }}>
-    <Text style={{ color: colors.primary,paddingHorizontal:30 }}>Dark Mode</Text>
+        <View style={{
+            flexDirection: "row",
+            height: 100,
+            padding: 20
+          }}>
+          <Text style={{ color: colors.text, paddingHorizontal:30 }}>Dark Mode</Text>
 
-    <Switch color = {colors.primary} value={isSwitchOn} onValueChange={onToggleSwitch} />
-    </View>
-    <Divider />
-    <Button mode="contained" color = {colors.primary} onPress ={handleLogout} >
-    Logout
-    </Button>
-    <Divider />
-  </View>
-  
+          <Switch color = {colors.primary} value={isSwitchOn} onValueChange={onToggleSwitch} />
+        </View>
+        <Divider />
+        <Button mode="contained" color = {colors.primary} onPress ={handleLogout} >
+        Logout
+        </Button>
+        <Divider />
       </View>
+  
+    </View>
 
 
   );
