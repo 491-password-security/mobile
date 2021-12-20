@@ -1,5 +1,5 @@
 import React,{ useState, useEffect} from 'react';
-import {StyleSheet, View } from 'react-native';
+import {SafeAreaView, StyleSheet, View } from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import {ThemeContext} from '../theme-context';
 import * as Keychain from "react-native-keychain";
@@ -30,33 +30,20 @@ export default function Settings({navigation}) {
 
   
   return (
-   <View style={styles.container}>
-   <Appbar style={{
-            backgroundColor: colors.primary,
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            height:100
-          }}>
-      {/* <Appbar.BackAction style={styles.appIcon} onPress={() => navigation.navigate('PasswordScreen', { name: 'PasswordScreen' })} /> */}
-      <Appbar.Content title="Settings"/>
-    </Appbar>
-      <View>
-        <View style={{
-            flexDirection: "row",
-            height: 100,
-            padding: 20
-          }}>
-          <Text style={{ color: colors.text, paddingHorizontal:30 }}>Dark Mode</Text>
-
+   <View>
+    <SafeAreaView style={{backgroundColor: colors.primary}}>
+      <Appbar style={{ backgroundColor: colors.primary, }}>
+        <Appbar.Content title="Settings"/>
+      </Appbar>
+    </SafeAreaView>
+      <View style={{}}>
+        <View style={{ flexDirection: "row", margin: 20, }}>
+          <Text style={{ alignSelf: 'center', color: colors.text, flex: 20}}>Dark Mode</Text>
           <Switch color = {colors.primary} value={isSwitchOn} onValueChange={onToggleSwitch} />
         </View>
-        <Divider />
-        <Button mode="contained" color = {colors.primary} onPress ={handleLogout} >
+        <Button style={styles.button} mode="contained" color = {colors.primary} onPress ={handleLogout} >
         Logout
         </Button>
-        <Divider />
       </View>
   
     </View>
@@ -74,13 +61,23 @@ const styles = StyleSheet.create({
     top: 0,
     height:100
   },
+
   appIcon: {
     position: 'absolute',
     left: 20,
     top: 50
   },
+
+  button:{
+    alignSelf: 'center',
+    borderRadius: 8,
+    margin: 5,
+    width: "85%",
+  },
+
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
-  }})
+  }
+})

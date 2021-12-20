@@ -36,7 +36,7 @@ function HomeTabs(){
       options={{
         tabBarLabel: 'Generator',
         tabBarIcon: ({ color, size }) => (
-          <FontAwesomeIcon name="cog" color={color} size={size}/>
+          <FontAwesomeIcon name="redo" color={color} size={size}/>
         ),
       }}
       />

@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View , SafeAreaView, Image } from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
-import { Appbar, Button, Switch } from 'react-native-paper';
+import { Appbar, Button, Switch, } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
-import { color } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Clipboard from '@react-native-community/clipboard';
 import Slider from '@react-native-community/slider';
+import Snackbar from 'react-native-snackbar';
 
 
 const numbers = '0123456789'
@@ -89,7 +88,7 @@ export default function PasswordGeneratorScreen({navigation}){
         </Appbar>
       </SafeAreaView>
       <SafeAreaView>
-        <Text style={styles.randomPassword} color={colors.text}>{passwd}</Text>
+        <Text style={[styles.randomPassword, {color: colors.text}]}>{passwd}</Text>
         <Button
           mode="contained"
           color={colors.primary} 
@@ -106,13 +105,15 @@ export default function PasswordGeneratorScreen({navigation}){
           style={styles.button}
           onPress={() => {
             Clipboard.setString(passwd);
+            Snackbar.dismiss()
+            Snackbar.show({text: "Password Copied to Clipboard", duration: 800, textColor: colors.text, numberOfLines: 1, backgroundColor: colors.background});
           }}
         >
           Copy Password
         </Button>
         <View style={{flexDirection: "row"}}>
-          <Text style={{flex:5, alignSelf: 'center', marginLeft: 10, fontSize: 15, fontWeight: 'bold'}}>Length</Text>
-          <Text style={{flex:2, alignSelf:'center'}}>{passwordLength}</Text>
+          <Text style={{flex:5, alignSelf: 'center', marginLeft: 10, fontSize: 15, fontWeight: 'bold', color: colors.text}}>Length</Text>
+          <Text style={{flex:2, alignSelf:'center', color: colors.text}}>{passwordLength}</Text>
           <Slider
             value={passwordLength}
             style={{flex:14, marginRight: 10}}
@@ -123,20 +124,20 @@ export default function PasswordGeneratorScreen({navigation}){
           />
         </View>
         <View style={styles.option}>
-          <Text style={styles.optionText}>A-Z</Text>
-          <Switch style={{}} value={includeUppercase} onValueChange={(value) => {setOption(setIncludeUppercase, value)}}/>
+          <Text style={[styles.optionText, {color: colors.text}]} color={colors.text}>A-Z</Text>
+          <Switch style={styles.switch} value={includeUppercase} onValueChange={(value) => {setOption(setIncludeUppercase, value)}}/>
         </View>
         <View style={styles.option}>
-          <Text style={styles.optionText}>a-z</Text>
-          <Switch style={{}} value={includeLowercase} onValueChange={(value) => {setOption(setIncludeLowercase, value)}}/>
+          <Text style={[styles.optionText, {color: colors.text}]}>a-z</Text>
+          <Switch style={styles.switch} value={includeLowercase} onValueChange={(value) => {setOption(setIncludeLowercase, value)}}/>
         </View>
         <View style={styles.option}>
-          <Text style={styles.optionText}>0-9</Text>
-          <Switch style={{}} value={includeNumbers} onValueChange={(value) => {setOption(setIncludeNumbers, value)}}/>
+          <Text style={[styles.optionText, {color: colors.text}]}>0-9</Text>
+          <Switch style={styles.switch} value={includeNumbers} onValueChange={(value) => {setOption(setIncludeNumbers, value)}}/>
         </View>
         <View style={styles.option}>
-          <Text style={styles.optionText}>!@#$%^&*</Text>
-          <Switch style={{}} value={includeSymbols} onValueChange={(value) => {setOption(setIncludeSymbols, value)}}/>
+          <Text style={[styles.optionText, {color: colors.text}]}>!@#$%^&*</Text>
+          <Switch style={styles.switch} value={includeSymbols} onValueChange={(value) => {setOption(setIncludeSymbols, value)}}/>
         </View>
 
       </SafeAreaView>
@@ -160,13 +161,16 @@ const styles = StyleSheet.create({
     option:{
       flexDirection:"row",
       alignItems:"flex-end",
-      marginTop: 5,
+      marginTop: 8,
     },
     optionText:{
       flex:1,
       alignSelf: 'center', 
       marginLeft: 10, 
-      fontSize: 15, 
+      fontSize: 17, 
       fontWeight: 'bold',
+    },
+    switch:{
+      marginRight: 8,
     }
 });

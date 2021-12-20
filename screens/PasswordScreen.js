@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View ,Image} from 'react-native';
+import {StyleSheet, Text, View , SafeAreaView, Image} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import { Appbar,TextInput, Button } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
@@ -25,19 +25,14 @@ export default function PasswordScreen({navigation}) {
   }*/ 
 
   return (
-    <View style={styles.container} useTheme={colors}>
-      <Appbar style={{
-            backgroundColor: colors.primary,
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            height:100
-          }}>  
-        <Appbar.Content title="Home"/>
-      </Appbar>
+    <View useTheme={colors}>
+      <SafeAreaView style={{backgroundColor: colors.primary}}>
+        <Appbar style={{ backgroundColor: colors.primary }}>  
+          <Appbar.Content title="Home"/>
+        </Appbar>
+      </SafeAreaView>
       <View>
-        <View style= {{paddingHorizontal:80}}> 
+        <View style= {{paddingHorizontal:0}}> 
           <TextInput
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
@@ -107,7 +102,7 @@ const styles = StyleSheet.create({
   text: {
     alignSelf: 'center',
     width:350,
-    height:100,
+    height:80,
     fontSize: 12,
   }
 });
