@@ -71,30 +71,25 @@ function HomeTabs(){
     </Tab.Navigator>
   );
 }
-const savedTheme = '';
 export default App = () => {
-
-
-   const getTheme = async (savedTheme)=>{
+   const getTheme = async () => {
     try {
-      const savedThemeTMP = await AsyncStorage.getItem('ThemeKey');
-      //console.log(savedThemeTMP);
-      if(savedThemeTMP !== null) {
-        savedTheme = savedThemeTMP; 
-        console.log(savedTheme);
-        return savedTheme;
+      const savedTheme = await AsyncStorage.getItem('ThemeKey');
+      if(savedTheme !== null) {
+        return savedTheme; 
       }
     } catch(e) {
-      console.log('error');
+      console.log(e);
     }
   }
 
-  getTheme(savedTheme); 
-
-  //console.log(savedTheme);
-  const systemTheme = useColorScheme();
-  //console.log(systemTheme);
   const [theme, setTheme] = useState(systemTheme);  /// BURAYA SYSTEMTHEME YERINE SAVEDTHEME VERILMELI..
+
+  getTheme().then((savedTheme) => {
+    setTheme(savedTheme)
+  }); 
+
+  const systemTheme = useColorScheme();
   const themeData = { theme, setTheme }; 
   
   return (
