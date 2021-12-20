@@ -1,16 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, View , SafeAreaView, Image} from 'react-native';
+import {StyleSheet, View , SafeAreaView} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import { Appbar,TextInput, Button } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
-import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 
 
 
-export default function PasswordScreen({navigation}) {
+export default function PasswordScreen({navigation,route}) {
   MultitaskBlur.blur();
   const { colors } = useTheme();
+  //const {massPass} = route.params;
   //const [urlInput, setUrlInput] = useState('');
   //const [userInput, setUserInput] = useState('');
 
@@ -32,7 +32,7 @@ export default function PasswordScreen({navigation}) {
         </Appbar>
       </SafeAreaView>
       <View>
-        <View style= {{paddingHorizontal:0}}> 
+        <View style= {{paddingVertical:10}}> 
           <TextInput
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
@@ -41,9 +41,7 @@ export default function PasswordScreen({navigation}) {
             placeholder = "Enter Your Username"
             style ={styles.text}
           />
-
-          <View style= {{paddingVertical:5}}></View>
-          
+          <View style= {{paddingVertical:10}}></View>
           <TextInput
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
@@ -53,56 +51,26 @@ export default function PasswordScreen({navigation}) {
             style ={styles.text}
           />
         </View>
-        
         <View style= {{paddingVertical:40, flexDirection:'row', justifyContent:'space-evenly'}}> 
           <Button mode="contained" color = {colors.primary} >
           Get Password
           </Button>
         </View>
-      
       </View>
     </View>
   );
 }
     
 const styles = StyleSheet.create({
-  topBar: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height:100
-  },
-  appIcon: {
-    position: 'absolute',
-    left: 20,
-    top: 50
-  },
-  appIconSettings: {
-    position: 'absolute',
-    right: 20,
-    top: 50
-  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
   },
-  image: {
-    flex: 1,
-    justifyContent: "center",
-    width:'100%',
-    height:'100%'
-  },
-  logoimage: {
-    width:400,
-    height:400,
-    alignSelf: 'center',
-  },
   text: {
     alignSelf: 'center',
-    width:350,
-    height:80,
+    width: '100%',
+    height: 80,
     fontSize: 12,
   }
 });

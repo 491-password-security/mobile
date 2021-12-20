@@ -1,4 +1,4 @@
-import React,{ useState, useEffect,Pressable }  from 'react';
+import React from 'react';
 
 export const themes = {
   myLightTheme: {
