@@ -115,7 +115,7 @@ export default function LoginScreen({navigation,props}) {
   return (
     <View style={styles.container}>
       <SafeAreaView>
-      <View style={{ flex: 5}} > 
+      <View style={{ flex: 2}} > 
       <Image style={styles.logoimage} source={require('../assets/lock2.png')} />
       </View>
       <View style={{ flex: 1}} > 
@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
   },
   logoimage: {
     //flex: 1,
-    width: '120%',
-    height: '50%',
+    width: '100%',
+    height: '60%',
     alignSelf: 'center',
   },
   text: {

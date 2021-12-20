@@ -25,6 +25,13 @@ export default function Settings({navigation}) {
     navigation.navigate('LoginScreen');
   }
 
+  const handleOFFBIO = async()=>{
+    const logout = await Keychain.resetGenericPassword();
+    masterPass = '';
+    //console.log(masterPass);
+    //navigation.navigate('LoginScreen');
+  }
+
   const handleLogin = async () => {
     // login api call here
     const username = "local";
@@ -40,8 +47,7 @@ export default function Settings({navigation}) {
   const onToggleSwitch = async ()=>{
     setIsSwitchOn(!isSwitchOn);
     if(isSwitchOn){
-      const logout = await Keychain.resetGenericPassword();
-      //handleLogout();
+      handleOFFBIO();
     }
     else{
       handleLogin();
@@ -49,25 +55,26 @@ export default function Settings({navigation}) {
   }
   const setThemeDark = async ()=>{
     setTheme(theme === 'dark' ? 'dark' : 'dark');
+    //console.log(theme);
     try {
-      await AsyncStorage.setItem('ThemeKey', theme);
+      await AsyncStorage.setItem('ThemeKey', 'dark');
     } catch (e) {
       // saving error
     }
   }
   const setThemeLight = async ()=>{
     setTheme(theme === 'light' ? 'light' : 'light');
+    //console.log(theme);
     try {
-      await AsyncStorage.setItem('ThemeKey', theme);
-     //console.log(theme);
+      await AsyncStorage.setItem('ThemeKey', 'light');
     } catch (e) {
       // saving error
     }
   }
   const setThemeSystem= async ()=>{
     setTheme(theme === systemTheme ? systemTheme : systemTheme);
-    try {o
-      await AsyncStorage.setItem('ThemeKey', theme);
+    try {
+      await AsyncStorage.setItem('ThemeKey', systemTheme);
     } catch (e) {
       // saving error
     }
