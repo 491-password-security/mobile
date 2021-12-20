@@ -1,5 +1,5 @@
 import React,{ useState, useEffect}  from 'react';
-import {StyleSheet, View ,Image} from 'react-native';
+import {StyleSheet, View ,Image,SafeAreaView} from 'react-native';
 import * as LocalAuthentication from 'expo-local-authentication';
 import MultitaskBlur from "react-native-multitask-blur";
 import * as Keychain from "react-native-keychain";
@@ -14,12 +14,10 @@ export default function LoginScreen({navigation,props}) {
   const { colors } = useTheme();
   const [hidePass, setHidePass] = useState(true);
 
-
-
   /*const deneme = async () => {
     // login api call here
     const credentials = await Keychain.getGenericPassword();
-    if (credentials) {r
+    if (credentials) {
       console.log(
         'Credentials successfully loaded for user ' + credentials.username
       );
@@ -35,18 +33,9 @@ export default function LoginScreen({navigation,props}) {
 
   const handleLogin = async () => {
     // login api call here
-    const masterPass = passInput;
+    global.masterPass = passInput;
     const username = "local";
-    const credentials = await Keychain.getGenericPassword();
-    if (!credentials){
-      await Keychain.setGenericPassword(username, masterPass);
-    }
     navigation.navigate('Home');
-  }
-
-  const showPassword = async () => {
-    //if (privacy = )
-    privacy = false;
   }
 
 
@@ -121,34 +110,38 @@ export default function LoginScreen({navigation,props}) {
     navigation.navigate('PasswordScreen', { name: 'PasswordScreen' });
   };
 
-  
+  //handleBiometricAuth();
+
   return (
     <View style={styles.container}>
-      <View>
-       <Image style={styles.logoimage} source={require('../assets/lock2.png')}       />
-        <View style= {{paddingVertical:70}}> 
+      <SafeAreaView>
+      <View style={{ flex: 2}} > 
+      <Image style={styles.logoimage} source={require('../assets/lock2.png')} />
+      </View>
+      <View style={{ flex: 1}} > 
         <TextInput
+        style ={styles.text}
         underlineColor={colors.primary}
         activeUnderlineColor= {colors.primary}
         label = "Master Password"
-        placeholder = "Please Enter Master Password"
+        placeholder = "Enter Master Password"
         secureTextEntry={hidePass ? true : false}
         left={<TextInput.Icon name="lock"/>}
         right={<TextInput.Icon name="eye" onPress={() => setHidePass(!hidePass)} />}
         onChangeText={passInput => setPassInput(passInput)}
         defaultValue={passInput}
-        style ={styles.text}
        />
-        </View >
-        <View style= {{paddingVertical:40,flexDirection:'row',justifyContent:'space-evenly'}}> 
+       </View>
+       <View style={{ flex: 1}} > 
         <Button mode="contained" color = {colors.primary} onPress ={handleLogin} >
-    Login
-  </Button>
-        </View>
+        Login
+        </Button>
+        <View style= {{paddingVertical:10}}/> 
         <Button mode="contained" color = {colors.primary} onPress ={handleBiometricAuth} >
         Login with Biometrics
-  </Button>
+      </Button>
       </View>
+      </SafeAreaView>
     </View>
   );
 }
@@ -159,23 +152,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  image: {
-    flex: 1,
-    justifyContent: "center",
-    width:'100%',
-    height:'100%'
-  },
   logoimage: {
-    
-    width:200,
-    height:200,
+    //flex: 1,
+    width: '100%',
+    height: '60%',
     alignSelf: 'center',
   },
   text: {
+    //flex: 1,
     color: "black",
     alignSelf: 'center',
-    width:350,
-    height:100,
+    width: '150%',
+    height: 80,
     fontSize: 12,
     fontWeight: "bold",
   },

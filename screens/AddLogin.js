@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React,{ useState, useEffect}  from 'react';
 import {StyleSheet, View , SafeAreaView} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import { Appbar,TextInput, Button } from 'react-native-paper';
@@ -7,30 +7,19 @@ import { useTheme } from '@react-navigation/native';
 
 
 
-export default function PasswordScreen({navigation,route}) {
+export default function AddLogin({navigation,route}) {
   MultitaskBlur.blur();
   const { colors } = useTheme();
+  const [hidePass, setHidePass] = useState(true);
   const [urlInput, setUrlInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
   const [usernameInput, setUsernameInput] = useState('');
-  //const {massPass} = route.params;
-  //const [urlInput, setUrlInput] = useState('');
-  //const [userInput, setUserInput] = useState('');
-
-  /*const deneme = async () => {
-    // login api call here
-    const credentials = await Keychain.getGenericPassword();
-    if (!credentials) {
-      console.log(
-        'Credentials successfully loaded for user ' + credentials.username
-      );
-    } 
-  }*/ 
 
   return (
     <View useTheme={colors}>
       <SafeAreaView style={{backgroundColor: colors.primary}}>
         <Appbar style={{ backgroundColor: colors.primary }}>  
-          <Appbar.Content title="Home"/>
+          <Appbar.Content title="Add Login"/>
         </Appbar>
       </SafeAreaView>
       <View>
@@ -45,6 +34,17 @@ export default function PasswordScreen({navigation,route}) {
           />
           <View style= {{paddingVertical:10}}></View>
           <TextInput
+        style ={styles.text}
+        underlineColor={colors.primary}
+        activeUnderlineColor= {colors.primary}
+        label = "Password"
+        placeholder = "Enter Password"
+        secureTextEntry={hidePass ? true : false}
+        left={<TextInput.Icon name="lock"/>}
+        right={<TextInput.Icon name="eye" onPress={() => setHidePass(!hidePass)} />}
+       />
+            <View style= {{paddingVertical:10}}></View>
+          <TextInput
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
             left={<TextInput.Icon name="link"/>}
@@ -53,9 +53,11 @@ export default function PasswordScreen({navigation,route}) {
             style ={styles.text}
           />
         </View>
+        
+        
         <View style= {{paddingVertical:40, flexDirection:'row', justifyContent:'space-evenly'}}> 
           <Button mode="contained" color = {colors.primary} >
-          Get Password
+          Save
           </Button>
         </View>
       </View>
