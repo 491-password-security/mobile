@@ -6,12 +6,16 @@ import { useTheme } from '@react-navigation/native';
 
 import { getPasswordFromServer } from '../password/get';
 
+import { useTranslation } from 'react-i18next';
+import './constants/i18n';
+
 
 export default function PasswordScreen({navigation}) {
   MultitaskBlur.blur();
   const { colors } = useTheme();
   const [urlInput, setUrlInput] = useState('');
   const [usernameInput, setUsernameInput] = useState('');
+  const {t, i18n} = useTranslation();
   //const {massPass} = route.params;
   //const [urlInput, setUrlInput] = useState('');
   //const [userInput, setUserInput] = useState('');
@@ -30,7 +34,7 @@ export default function PasswordScreen({navigation}) {
     <View useTheme={colors}>
       <SafeAreaView style={{backgroundColor: colors.primary}}>
         <Appbar style={{ backgroundColor: colors.primary }}>  
-          <Appbar.Content title="Home"/>
+          <Appbar.Content title={t("Home")}/>
         </Appbar>
       </SafeAreaView>
       <View>
@@ -40,8 +44,8 @@ export default function PasswordScreen({navigation}) {
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
             left={<TextInput.Icon name="account"/>}
-            label = "Username"
-            placeholder = "Enter Your Username"
+            label = {t("Username")}
+            placeholder = {t("Enter Your Username")}
           />
           <View style= {{paddingVertical:10}}></View>
           <TextInput
@@ -49,8 +53,8 @@ export default function PasswordScreen({navigation}) {
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
             left={<TextInput.Icon name="link"/>}
-            label = "URL"
-            placeholder = "Enter URL"
+            label = {t("URL")}
+            placeholder = {t("Enter URL")}
           />
         </View>
         <View style= {{paddingVertical:40, flexDirection:'row', justifyContent:'space-evenly'}}> 
@@ -67,7 +71,7 @@ export default function PasswordScreen({navigation}) {
               })
           }}
           >
-          Get Password
+          {t("Get Password")}
           </Button>
         </View>
       </View>
