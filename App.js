@@ -1,4 +1,4 @@
-import React,{ useState,useEffect, useCallback}  from 'react';
+import React,{ useState,useEffect, useCallback, NativeModules}  from 'react';
 import { useColorScheme} from 'react-native';
 import { NavigationContainer,DefaultTheme,DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -20,9 +20,8 @@ const Tab = createBottomTabNavigator();
 
 
 
-
-
 function HomeTabs(){
+  //AutoFillModule.hello("top umur");
   return (
     <Tab.Navigator screenOptions={{headerShown:false}} initialRouteName="Vault">
       <Tab.Screen

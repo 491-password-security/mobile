@@ -1,4 +1,4 @@
-import React,{ useState, useEffect}  from 'react';
+import React,{ useState, useEffect, NativeModules}  from 'react';
 import {StyleSheet, View , SafeAreaView} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import { Appbar,TextInput, Button } from 'react-native-paper';
@@ -60,11 +60,15 @@ export default function AddLogin({navigation,route}) {
           mode="contained"
           color = {colors.primary}
           onPress={() => {
-            try{
-              savePasswordShares("altay", "altay.com", "gizli");
-            }catch(error){
-              console.log(error);
-            }
+            savePasswordShares("altay", "altay.com", "gizli");
+            /*
+              .then(() => {
+                console.log("saved password");
+              })
+              .catch((error) => {
+                console.log(error);
+              })
+              */
           }}
           >
           Save

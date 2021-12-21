@@ -9,7 +9,7 @@ let portList = [":5001", ":5002", ":5003"];
 
 
 
-const generatePasswordShares = (passwd) => {
+const generatePasswordShares = (hashed, passwd) => {
   console.log("save start1");
   console.log("save start2");
   const randPwd = crypto.util.random(32);
@@ -18,19 +18,18 @@ const generatePasswordShares = (passwd) => {
   let bits = crypto.codec.hex2Bin(crypto.util.hash(passwd));
   console.log("save start4");
   let rv = [];
+  //const finalFunc = (
   for (let index = 0; index < shares.length; index++) {
     console.log("save start5");
-    let encKey;
-    try{
-      encKey = OPRF(base_url + portList[index], bits) 
-    }catch(error){
-      console.log(error);
-      return;
-    }
-    const encrypted = crypto.aes.encrypt(encKey.hex, shares[index]);
-    rv.push(encrypted);
+    OPRF(base_url + portList[index], bits, (oprf_result) => {
+      const encrypted = crypto.aes.encrypt(crypto.util.hash(oprf_result.hex), shares[index]);
+      try{
+        fetch(base_url + portList[index] + saveEndPoint + '/' + hashed + '/' + encrypted.ciphertext + '/' + encrypted.iv, {method: 'GET'});
+      }catch(e){
+        console.log("fetch error: " + e);
+      }
+    }); 
   }
-  return rv;
 }
 
 export const savePasswordShares = (userName, siteUrl, passwd) => {
@@ -40,11 +39,13 @@ export const savePasswordShares = (userName, siteUrl, passwd) => {
   const hashed = crypto.util.hash(userName + siteUrl);
   console.log("save after hash");
   let promises = [];
-  generatePasswordShares(passwd)
+  generatePasswordShares(hashed, passwd)
+  /*
     .forEach((encrypted) => {
       console.log("save fetch");
-      let promise = fetch(base_url + portList[index] + saveEndPoint + '/' + hashed + '/' + encrypted.ciphertext + '/' + encrypted.iv);
+      let promise = 
       promises.push(promise);
     });
   return Promise.all(promises);
+  */
 }

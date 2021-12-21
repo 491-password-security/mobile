@@ -5,13 +5,30 @@ const Number = crypto.Number;
 const MOD = crypto.constants.MOD;
 const GEN = crypto.constants.GEN;
 
+var count = 0;
+
 function beginOPRFRound(socket, bits, index) {
+  // if (index % 64 == 0 && index >= 64) {
+  //   alert(index)
+  // }
+  //var elem = document.getElementById("myBar");
+  //var load_msg = document.querySelector(".load-msg");
+  //load_msg.textContent = "Distributing shares..."
+  //elem.style.width = 100*(index/256) + "%";
   let receiver = new crypto.ObliviousTransferReceiver(parseInt(bits[index]), null, null);
   socket.emit("oprfRound", index)
+  if (index == 255) {
+    count++;
+    if (count == 3) {
+      console.log("Done");
+      //load_msg.textContent = "Done!"
+      count = 0;
+    }
+  }
   return receiver;
 }
 
-export function OPRF(serverUrl, bits) {
+export function OPRF(serverUrl, bits, finalFunc) {
   const socket = io(serverUrl);
   socket.on("connect", () => {
     let receiver;
@@ -31,8 +48,7 @@ export function OPRF(serverUrl, bits) {
       server_prod = new Number(serverProdInv, 16);
       let exp = server_prod.multiply(client_prod).mod(MOD);
       let oprf_result = GEN.modPow(exp, MOD);
-      //alert(oprf_result.decimal);
-      return oprf_result;
+      finalFunc(oprf_result);
     })
 
     // receive OT ciphertexts from server
