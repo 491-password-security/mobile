@@ -321,6 +321,8 @@ PODS:
     - React-Core
   - RNKeychain (8.0.0):
     - React-Core
+  - RNLocalize (2.1.6):
+    - React-Core
   - RNReanimated (2.3.1):
     - DoubleConversion
     - FBLazyVector
@@ -412,6 +414,7 @@ DEPENDENCIES:
   - "RNCClipboard (from `../node_modules/@react-native-community/clipboard`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNKeychain (from `../node_modules/react-native-keychain`)
+  - RNLocalize (from `../node_modules/react-native-localize`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSnackbar (from `../node_modules/react-native-snackbar`)
@@ -525,6 +528,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNKeychain:
     :path: "../node_modules/react-native-keychain"
+  RNLocalize:
+    :path: "../node_modules/react-native-localize"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -544,10 +549,10 @@ SPEC CHECKSUMS:
   EXErrorRecovery: deea88a01d38f8b1c1181b4e1d179b0ba0e4bb5b
   EXFileSystem: 7d1309ba6b38b82ef7fc9e80174de3f9184ac8b4
   EXFont: 1fb13af43dc517c01c0ff21a6e32f9f9bf2ea602
-  EXJSONUtils: bafb27ed20417c018d942f334d969102e67be7e5
+  EXJSONUtils: f515cf71710855d7ba5bfc6752af3b9a6f6aad01
   EXKeepAwake: b571c2ad8323b2fced6e907766e2549f75119471
   EXLocalAuthentication: 4c7166ed3133d2c75586093833936652e7d2c7fc
-  EXManifests: 15831e369de4e989f9cfe8c3321303f26745e41d
+  EXManifests: 50e42e01335df4e54109dee7be5a91bfd37347db
   Expo: 6ca1d5ca8c8264a7131a608afcd01561f79f1e6e
   ExpoModulesCore: d04e519b3e8e21523b195bb21a40144e30f1e163
   EXSplashScreen: 845290df0d2730fdedc59ee6ce3b959d8079a350
@@ -570,9 +575,9 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 94ce921e1d8ce7023366873ec371f3441383b396
   React-jsinspector: d0374f7509d407d2264168b6d0fad0b54e300b85
   React-logger: 933f80c97c633ee8965d609876848148e3fef438
-  react-native-multitask-blur: 4d229a99331b678c4f65e9b9bbdad0341ee88d24
-  react-native-safe-area-context: 5cf05f49df9d17261e40e518481f2e334c6cd4b5
-  react-native-slider: b0b4c575507df69bc8ceb307eaad0a8f89455a8e
+  react-native-multitask-blur: b6353653283cb6b1a60f1892dbd4d7352e50e01f
+  react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
+  react-native-slider: 6e9b86e76cce4b9e35b3403193a6432ed07e0c81
   React-perflogger: 93075d8931c32cd1fce8a98c15d2d5ccc4d891bd
   React-RCTActionSheet: 7d3041e6761b4f3044a37079ddcb156575fb6d89
   React-RCTAnimation: 743e88b55ac62511ae5c2e22803d4f503f2a3a13
@@ -585,13 +590,14 @@ SPEC CHECKSUMS:
   React-RCTVibration: e3ffca672dd3772536cb844274094b0e2c31b187
   React-runtimeexecutor: dec32ee6f2e2a26e13e58152271535fadff5455a
   ReactCommon: 57b69f6383eafcbd7da625bfa6003810332313c4
-  RNCAsyncStorage: 4b6538222ce3f01f61011f512226ba3aaa0dc336
-  RNCClipboard: 5e299c6df8e0c98f3d7416b86ae563d3a9f768a3
+  RNCAsyncStorage: ea6b5c280997b2b32a587793163b1f10e580c4f7
+  RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
   RNGestureHandler: e5c7cab5f214503dcefd6b2b0cefb050e1f51c4a
   RNKeychain: 4f63aada75ebafd26f4bc2c670199461eab85d94
+  RNLocalize: f10d91c76a5692d4cf6f218c70f6e4d7dcb42d1c
   RNReanimated: da3860204e5660c0dd66739936732197d359d753
   RNScreens: 522705f2e5c9d27efb17f24aceb2bf8335bc7b8e
-  RNSnackbar: b6cbf294923b8d6c6056592bca87527c81a0130b
+  RNSnackbar: be3333a21a453ccc272f41a8add5a71f7d44dfcd
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
 

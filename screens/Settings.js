@@ -48,9 +48,11 @@ export default function Settings({navigation}) {
     setIsSwitchOn(!isSwitchOn);
     if(isSwitchOn){
       handleOFFBIO();
+      isBioSwitchOn = false;
     }
     else{
       handleLogin();
+      isBioSwitchOn = true;
     }
   }
   const setThemeDark = async ()=>{
@@ -91,7 +93,7 @@ export default function Settings({navigation}) {
       <View style={{}}>
         <View style={{ flexDirection: "row", margin: 20, }}>
           <Text style={{ alignSelf: 'center', color: colors.text, flex: 20}}>Enable Biometric Login</Text>
-          <Switch color = {colors.primary} value={isSwitchOn} onValueChange={onToggleSwitch} />
+          <Switch color = {colors.switchColor} value={isSwitchOn} onValueChange={onToggleSwitch} />
         </View>
         <List.Section >
       <List.Accordion

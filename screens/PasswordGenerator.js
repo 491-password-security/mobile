@@ -115,6 +115,7 @@ export default function PasswordGeneratorScreen({navigation}){
           <Text style={{flex:5, alignSelf: 'center', marginLeft: 10, fontSize: 15, fontWeight: 'bold', color: colors.text}}>Length</Text>
           <Text style={{flex:2, alignSelf:'center', color: colors.text}}>{passwordLength}</Text>
           <Slider
+            minimumTrackTintColor ={colors.switchColor}
             value={passwordLength}
             style={{flex:14, marginRight: 10}}
             minimumValue={5}
@@ -125,19 +126,19 @@ export default function PasswordGeneratorScreen({navigation}){
         </View>
         <View style={styles.option}>
           <Text style={[styles.optionText, {color: colors.text}]} color={colors.text}>A-Z</Text>
-          <Switch style={styles.switch} value={includeUppercase} onValueChange={(value) => {setOption(setIncludeUppercase, value)}}/>
+          <Switch color = {colors.switchColor} style={styles.switch} value={includeUppercase} onValueChange={(value) => {setOption(setIncludeUppercase, value)}}/>
         </View>
         <View style={styles.option}>
           <Text style={[styles.optionText, {color: colors.text}]}>a-z</Text>
-          <Switch style={styles.switch} value={includeLowercase} onValueChange={(value) => {setOption(setIncludeLowercase, value)}}/>
+          <Switch color = {colors.switchColor} style={styles.switch} value={includeLowercase} onValueChange={(value) => {setOption(setIncludeLowercase, value)}}/>
         </View>
         <View style={styles.option}>
           <Text style={[styles.optionText, {color: colors.text}]}>0-9</Text>
-          <Switch style={styles.switch} value={includeNumbers} onValueChange={(value) => {setOption(setIncludeNumbers, value)}}/>
+          <Switch color = {colors.switchColor} style={styles.switch} value={includeNumbers} onValueChange={(value) => {setOption(setIncludeNumbers, value)}}/>
         </View>
         <View style={styles.option}>
           <Text style={[styles.optionText, {color: colors.text}]}>!@#$%^&*</Text>
-          <Switch style={styles.switch} value={includeSymbols} onValueChange={(value) => {setOption(setIncludeSymbols, value)}}/>
+          <Switch color = {colors.switchColor} style={styles.switch} value={includeSymbols} onValueChange={(value) => {setOption(setIncludeSymbols, value)}}/>
         </View>
 
       </SafeAreaView>

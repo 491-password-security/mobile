@@ -25,16 +25,16 @@ export default function AddLogin({navigation,route}) {
       <View>
         <View style= {{paddingVertical:10}}> 
           <TextInput
-            underlineColor={colors.text}
-            activeUnderlineColor= {colors.text}
+            style ={[styles.text, {backgroundColor: colors.textInput}]}
+            underlineColor={colors.primary}
+            activeUnderlineColor= {colors.primary}
             left={<TextInput.Icon name="account"/>}
             label = "Username"
             placeholder = "Enter Your Username"
-            style ={styles.text}
           />
           <View style= {{paddingVertical:10}}></View>
           <TextInput
-        style ={styles.text}
+        style ={[styles.text, {backgroundColor: colors.textInput}]}
         underlineColor={colors.primary}
         activeUnderlineColor= {colors.primary}
         label = "Password"
@@ -45,12 +45,12 @@ export default function AddLogin({navigation,route}) {
        />
             <View style= {{paddingVertical:10}}></View>
           <TextInput
-            underlineColor={colors.text}
-            activeUnderlineColor= {colors.text}
+            style ={[styles.text, {backgroundColor: colors.textInput}]}
+            underlineColor={colors.primary}
+            activeUnderlineColor= {colors.primary}
             left={<TextInput.Icon name="link"/>}
             label = "URL"
             placeholder = "Enter URL"
-            style ={styles.text}
           />
         </View>
         

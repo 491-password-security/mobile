@@ -36,21 +36,21 @@ export default function PasswordScreen({navigation}) {
       <View>
         <View style= {{paddingVertical:10}}> 
           <TextInput
+            style ={[styles.text, {backgroundColor: colors.textInput}]}
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
             left={<TextInput.Icon name="account"/>}
             label = "Username"
             placeholder = "Enter Your Username"
-            style ={styles.text}
           />
           <View style= {{paddingVertical:10}}></View>
           <TextInput
+            style ={[styles.text, {backgroundColor: colors.textInput}]}
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
             left={<TextInput.Icon name="link"/>}
             label = "URL"
             placeholder = "Enter URL"
-            style ={styles.text}
           />
         </View>
         <View style= {{paddingVertical:40, flexDirection:'row', justifyContent:'space-evenly'}}> 

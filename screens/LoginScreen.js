@@ -13,6 +13,7 @@ export default function LoginScreen({navigation,props}) {
   const [passInput, setPassInput] = useState('');
   const { colors } = useTheme();
   const [hidePass, setHidePass] = useState(true);
+  global.isBioSwitchOn = false;
 
   /*const deneme = async () => {
     // login api call here
@@ -109,8 +110,11 @@ export default function LoginScreen({navigation,props}) {
     masterPass = credentials.masterPass;
     navigation.navigate('PasswordScreen', { name: 'PasswordScreen' });
   };
-
-  //handleBiometricAuth();
+/*
+if(isBioSwitchOn == true){  Asynch storagedan almali
+ handleBiometricAuth();
+}
+*/
 
   return (
     <View style={styles.container}>
@@ -120,7 +124,8 @@ export default function LoginScreen({navigation,props}) {
       </View>
       <View style={{ flex: 1}} > 
         <TextInput
-        style ={styles.text}
+        //selectionColor = {colors.primary}
+        style ={[styles.text, {backgroundColor: colors.textInput}]}
         underlineColor={colors.primary}
         activeUnderlineColor= {colors.primary}
         label = "Master Password"
@@ -160,6 +165,7 @@ const styles = StyleSheet.create({
   },
   text: {
     //flex: 1,
+    //backgroundColor:'black',
     color: "black",
     alignSelf: 'center',
     width: '150%',
