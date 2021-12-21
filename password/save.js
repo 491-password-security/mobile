@@ -10,17 +10,13 @@ let portList = [":5001", ":5002", ":5003"];
 
 
 const generatePasswordShares = (hashed, passwd) => {
-  console.log("save start1");
-  console.log("save start2");
   const randPwd = crypto.util.random(32);
-  console.log("save start3");
+  console.log("rand pass: " + randPwd);
   const shares = crypto.ss.share(randPwd, 2, 3);
   let bits = crypto.codec.hex2Bin(crypto.util.hash(passwd));
-  console.log("save start4");
   let rv = [];
   //const finalFunc = (
   for (let index = 0; index < shares.length; index++) {
-    console.log("save start5");
     OPRF(base_url + portList[index], bits, (oprf_result) => {
       const encrypted = crypto.aes.encrypt(crypto.util.hash(oprf_result.hex), shares[index]);
       try{

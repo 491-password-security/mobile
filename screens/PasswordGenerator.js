@@ -6,7 +6,8 @@ import { useTheme } from '@react-navigation/native';
 import Clipboard from '@react-native-community/clipboard';
 import Slider from '@react-native-community/slider';
 import Snackbar from 'react-native-snackbar';
-
+import { useTranslation } from 'react-i18next';
+import './constants/i18n';
 
 const numbers = '0123456789'
 const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -16,6 +17,7 @@ const specialCharacters = "!'^+%&/()=?_#$½§{[]}|;:>÷`<.*-@é"
 export default function PasswordGeneratorScreen({navigation}){
   MultitaskBlur.blur();
   const { colors } = useTheme();
+  const {t, i18n} = useTranslation();
 
   const [passwordLength, setPasswordLength] = useState(14)
   const [includeUppercase, setIncludeUppercase] = useState(true)
@@ -84,7 +86,7 @@ export default function PasswordGeneratorScreen({navigation}){
     <View>
       <SafeAreaView style={{backgroundColor:colors.primary}}>
         <Appbar style={{backgroundColor:colors.primary}}>  
-          <Appbar.Content title="Password Generator"/>
+          <Appbar.Content title={t("Password Generator")}/>
         </Appbar>
       </SafeAreaView>
       <SafeAreaView>
@@ -97,7 +99,7 @@ export default function PasswordGeneratorScreen({navigation}){
             handleGeneratePassword();
           }}
         >
-          Regenerate Password
+          {t("Regenerate Password")}
         </Button>
         <Button 
           mode="contained" 
@@ -106,15 +108,16 @@ export default function PasswordGeneratorScreen({navigation}){
           onPress={() => {
             Clipboard.setString(passwd);
             Snackbar.dismiss()
-            Snackbar.show({text: "Password Copied to Clipboard", duration: 800, textColor: colors.text, numberOfLines: 1, backgroundColor: colors.background});
+            Snackbar.show({text: t("Password Copied to Clipboard"), duration: 800, textColor: colors.text, numberOfLines: 1, backgroundColor: colors.background});
           }}
         >
-          Copy Password
+          {t("Copy Password")}
         </Button>
         <View style={{flexDirection: "row"}}>
           <Text style={{flex:5, alignSelf: 'center', marginLeft: 10, fontSize: 15, fontWeight: 'bold', color: colors.text}}>Length</Text>
           <Text style={{flex:2, alignSelf:'center', color: colors.text}}>{passwordLength}</Text>
           <Slider
+            minimumTrackTintColor ={colors.switchColor}
             value={passwordLength}
             style={{flex:14, marginRight: 10}}
             minimumValue={5}
@@ -125,19 +128,19 @@ export default function PasswordGeneratorScreen({navigation}){
         </View>
         <View style={styles.option}>
           <Text style={[styles.optionText, {color: colors.text}]} color={colors.text}>A-Z</Text>
-          <Switch style={styles.switch} value={includeUppercase} onValueChange={(value) => {setOption(setIncludeUppercase, value)}}/>
+          <Switch color = {colors.switchColor} style={styles.switch} value={includeUppercase} onValueChange={(value) => {setOption(setIncludeUppercase, value)}}/>
         </View>
         <View style={styles.option}>
           <Text style={[styles.optionText, {color: colors.text}]}>a-z</Text>
-          <Switch style={styles.switch} value={includeLowercase} onValueChange={(value) => {setOption(setIncludeLowercase, value)}}/>
+          <Switch color = {colors.switchColor} style={styles.switch} value={includeLowercase} onValueChange={(value) => {setOption(setIncludeLowercase, value)}}/>
         </View>
         <View style={styles.option}>
           <Text style={[styles.optionText, {color: colors.text}]}>0-9</Text>
-          <Switch style={styles.switch} value={includeNumbers} onValueChange={(value) => {setOption(setIncludeNumbers, value)}}/>
+          <Switch color = {colors.switchColor} style={styles.switch} value={includeNumbers} onValueChange={(value) => {setOption(setIncludeNumbers, value)}}/>
         </View>
         <View style={styles.option}>
           <Text style={[styles.optionText, {color: colors.text}]}>!@#$%^&*</Text>
-          <Switch style={styles.switch} value={includeSymbols} onValueChange={(value) => {setOption(setIncludeSymbols, value)}}/>
+          <Switch color = {colors.switchColor} style={styles.switch} value={includeSymbols} onValueChange={(value) => {setOption(setIncludeSymbols, value)}}/>
         </View>
 
       </SafeAreaView>

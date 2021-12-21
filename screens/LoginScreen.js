@@ -7,29 +7,18 @@ import { useTheme } from '@react-navigation/native';
 import { TextInput,Button } from 'react-native-paper';
 var crypto = require('crypto-helper-ku');
 
+import { useTranslation } from 'react-i18next';
+import './constants/i18n';
+
 
 export default function LoginScreen({navigation,props}) {
   MultitaskBlur.blur();
   const [passInput, setPassInput] = useState('');
   const { colors } = useTheme();
   const [hidePass, setHidePass] = useState(true);
+  global.isBioSwitchOn = false;
 
-  /*const deneme = async () => {
-    // login api call here
-    const credentials = await Keychain.getGenericPassword();
-    if (credentials) {
-      console.log(
-        'Credentials successfully loaded for user ' + credentials.username
-      );
-    } 
-  }*/
-
-
-  /*  async () => {
-  const credentials = await Keychain.getGenericPassword();
-  if (credentials)
-  navigation.navigate('PasswordScreen');
-  }*/
+  const {t, i18n} = useTranslation();
 
   const handleLogin = async () => {
     // login api call here
@@ -109,8 +98,11 @@ export default function LoginScreen({navigation,props}) {
     masterPass = credentials.masterPass;
     navigation.navigate('PasswordScreen', { name: 'PasswordScreen' });
   };
-
-  //handleBiometricAuth();
+/*
+if(isBioSwitchOn == true){  Asynch storagedan almali
+ handleBiometricAuth();
+}
+*/
 
   return (
     <View style={styles.container}>
@@ -120,11 +112,12 @@ export default function LoginScreen({navigation,props}) {
       </View>
       <View style={{ flex: 1}} > 
         <TextInput
-        style ={styles.text}
+        //selectionColor = {colors.primary}
+        style ={[styles.text, {backgroundColor: colors.textInput}]}
         underlineColor={colors.primary}
         activeUnderlineColor= {colors.primary}
-        label = "Master Password"
-        placeholder = "Enter Master Password"
+        label = {t("Master Password")}
+        placeholder = {t("Enter Master Password")}
         secureTextEntry={hidePass ? true : false}
         left={<TextInput.Icon name="lock"/>}
         right={<TextInput.Icon name="eye" onPress={() => setHidePass(!hidePass)} />}
@@ -134,11 +127,11 @@ export default function LoginScreen({navigation,props}) {
        </View>
        <View style={{ flex: 1}} > 
         <Button mode="contained" color = {colors.primary} onPress ={handleLogin} >
-        Login
+        {t("Login")}
         </Button>
         <View style= {{paddingVertical:10}}/> 
         <Button mode="contained" color = {colors.primary} onPress ={handleBiometricAuth} >
-        Login with Biometrics
+       {t("Login with Biometrics")}
       </Button>
       </View>
       </SafeAreaView>
@@ -160,6 +153,7 @@ const styles = StyleSheet.create({
   },
   text: {
     //flex: 1,
+    //backgroundColor:'black',
     color: "black",
     alignSelf: 'center',
     width: '150%',

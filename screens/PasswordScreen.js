@@ -6,40 +6,43 @@ import { useTheme } from '@react-navigation/native';
 
 import { getPasswordFromServer } from '../password/get';
 
-//const { CalendarModule } = NativeModules;
-//CalendarModule.createCalendarEvent('testName', 'testLocation');
+import { useTranslation } from 'react-i18next';
+import './constants/i18n';
+
 
 export default function PasswordScreen({navigation}) {
   MultitaskBlur.blur();
   const { colors } = useTheme();
   const [urlInput, setUrlInput] = useState('');
   const [usernameInput, setUsernameInput] = useState('');
+  const {t, i18n} = useTranslation();
+  
 
   return (
     <View useTheme={colors}>
       <SafeAreaView style={{backgroundColor: colors.primary}}>
         <Appbar style={{ backgroundColor: colors.primary }}>  
-          <Appbar.Content title="Home"/>
+          <Appbar.Content title={t("Home")}/>
         </Appbar>
       </SafeAreaView>
       <View>
         <View style= {{paddingVertical:10}}> 
           <TextInput
+            style ={[styles.text, {backgroundColor: colors.textInput}]}
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
             left={<TextInput.Icon name="account"/>}
-            label = "Username"
-            placeholder = "Enter Your Username"
-            style ={styles.text}
+            label = {t("Username")}
+            placeholder = {t("Enter Your Username")}
           />
           <View style= {{paddingVertical:10}}></View>
           <TextInput
+            style ={[styles.text, {backgroundColor: colors.textInput}]}
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
             left={<TextInput.Icon name="link"/>}
-            label = "URL"
-            placeholder = "Enter URL"
-            style ={styles.text}
+            label = {t("URL")}
+            placeholder = {t("Enter URL")}
           />
         </View>
         <View style= {{paddingVertical:40, flexDirection:'row', justifyContent:'space-evenly'}}> 
@@ -59,7 +62,7 @@ export default function PasswordScreen({navigation}) {
               */
           }}
           >
-          Get Password
+          {t("Get Password")}
           </Button>
         </View>
       </View>

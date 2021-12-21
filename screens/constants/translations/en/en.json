@@ -1,0 +1,35 @@
+{
+  "translation": {
+    "Vault":"Vault",
+    "Generator":"Generator",
+    "Add Login":"Add Login",
+    "Settings":"Settings",
+    "Master Password": "Master Password",
+    "Enter Master Password": "Enter Master Password",
+    "Enter Your Username": "Enter Your Username",
+    "Login": "Login",
+    "Home":"Home",
+    "Username":"Username",
+    "Get Password":"Get Password",
+    "Enter Password":"Enter Password",
+    "Enter URL":"Enter URL",
+    "Password Generator":"Password Generator",
+    "Regenerate Password":"Regenerate Password",
+    "Copy Password":"Copy Password",
+    "Length":"Length",
+    "Password":"Password",
+    "Save":"Save",
+    "Enable Biometric Login":"Enable Biometric Login",
+    "Languages":"Languages",
+    "English":"English",
+    "Turkish":"Turkish",
+    "Themes":"Themes",
+    "System Theme":"System Theme",
+    "Dark Theme":"Dark Theme",
+    "Light Theme":"Light Theme",
+    "Logout":"Logout",
+    "Password Copied to Clipboard":"Password Copied to Clipboard",
+    "Login with Biometrics": "Login with Biometrics"
+    
+  }
+}

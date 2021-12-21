@@ -9,8 +9,10 @@ export const themes = {
       background: 'rgb(230, 230, 230)',
       card: 'rgb(230, 230, 230)',
       text: 'rgb(80, 80, 80)',
+      textInput: 'rgb(230, 230, 230)',
       border: 'rgb(0, 0, 0)',
       notification: 'rgb(255, 120, 120)',
+      switchColor: 'rgb(82, 188, 251)',
     },
   },
   myDarkTheme: {
@@ -21,8 +23,10 @@ export const themes = {
       background: 'rgb(30, 30, 30)',
       card: 'rgb(10, 10, 10)',
       text: 'rgb(180, 180, 180)',
+      textInput: 'rgb(80, 80, 80)',
       border: 'rgb(0, 0, 0)',
       notification: 'rgb(255, 9, 255)',
+      switchColor: 'rgb(82, 188, 251)',
     },
   },
 };

@@ -1,0 +1,35 @@
+{
+  "translation": {
+    "Vault":"Kasa",
+    "Generator":"Şifre Oluştur",
+    "Add Login":"Giriş Ekle",
+    "Settings":"Ayarlar",
+    "Master Password": "Ana Şifre",
+    "Enter Master Password": "Ana Şifre Giriniz",
+    "Enter Your Username": "Kullanıcı Adı Giriniz",
+    "Login": "Giriş",
+    "Home":"Ev",
+    "Username":"Kullanıcı Adı",
+    "Get Password":"Şifrenizi Alın",
+    "Enter Password":"Şifrenizi Girin",
+    "Enter URL":"URL Girin",
+    "Password Generator":"Şifre Oluştur",
+    "Regenerate Password":"Yeniden Şifre Oluştur",
+    "Copy Password":"Şifreyi Kopyala",
+    "Length":"Uzunluk",
+    "Password":"Şifre",
+    "Save":"Kaydet",
+    "Enable Biometric Login":"FaceID Etkinleştir",
+    "Languages":"Diller",
+    "English":"İngilizce",
+    "Turkish":"Türkçe",
+    "Themes":"Temalar",
+    "System Theme":"Sistem Tema",
+    "Dark Theme":"Koyu Tema",
+    "Light Theme":"Açık Tema",
+    "Logout":"Cıkış",
+    "Password Copied to Clipboard":"Şifre Kopyalandı",
+    "Login with Biometrics": "FaceID ile Giriş Yapın"
+    
+  }
+}

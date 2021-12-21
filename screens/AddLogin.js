@@ -5,6 +5,8 @@ import { Appbar,TextInput, Button } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
 
 import { savePasswordShares } from '../password/save';
+import { useTranslation } from 'react-i18next';
+import './constants/i18n';
 
 
 export default function AddLogin({navigation,route}) {
@@ -14,43 +16,44 @@ export default function AddLogin({navigation,route}) {
   const [urlInput, setUrlInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [usernameInput, setUsernameInput] = useState('');
+  const {t, i18n} = useTranslation();
 
   return (
     <View useTheme={colors}>
       <SafeAreaView style={{backgroundColor: colors.primary}}>
         <Appbar style={{ backgroundColor: colors.primary }}>  
-          <Appbar.Content title="Add Login"/>
+          <Appbar.Content title={t("Add Login")}/>
         </Appbar>
       </SafeAreaView>
       <View>
         <View style= {{paddingVertical:10}}> 
           <TextInput
-            underlineColor={colors.text}
-            activeUnderlineColor= {colors.text}
+            style ={[styles.text, {backgroundColor: colors.textInput}]}
+            underlineColor={colors.primary}
+            activeUnderlineColor= {colors.primary}
             left={<TextInput.Icon name="account"/>}
-            label = "Username"
-            placeholder = "Enter Your Username"
-            style ={styles.text}
+            label = {t("Username")}
+            placeholder = {t("Enter Your Username")}
           />
           <View style= {{paddingVertical:10}}></View>
           <TextInput
-        style ={styles.text}
+        style ={[styles.text, {backgroundColor: colors.textInput}]}
         underlineColor={colors.primary}
         activeUnderlineColor= {colors.primary}
-        label = "Password"
-        placeholder = "Enter Password"
+        label = {t("Password")}
+        placeholder = {t("Enter Password")}
         secureTextEntry={hidePass ? true : false}
         left={<TextInput.Icon name="lock"/>}
         right={<TextInput.Icon name="eye" onPress={() => setHidePass(!hidePass)} />}
        />
             <View style= {{paddingVertical:10}}></View>
           <TextInput
-            underlineColor={colors.text}
-            activeUnderlineColor= {colors.text}
+            style ={[styles.text, {backgroundColor: colors.textInput}]}
+            underlineColor={colors.primary}
+            activeUnderlineColor= {colors.primary}
             left={<TextInput.Icon name="link"/>}
-            label = "URL"
-            placeholder = "Enter URL"
-            style ={styles.text}
+            label = {t("URL")}
+            placeholder = {t("Enter URL")}
           />
         </View>
         
@@ -71,7 +74,7 @@ export default function AddLogin({navigation,route}) {
               */
           }}
           >
-          Save
+          {t("Save")}
           </Button>
         </View>
       </View>
