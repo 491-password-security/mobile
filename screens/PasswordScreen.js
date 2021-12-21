@@ -4,10 +4,10 @@ import MultitaskBlur from "react-native-multitask-blur";
 import { Appbar,TextInput, Button } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
 
+import { getPasswordFromServer } from '../password/get';
 
 
-
-export default function PasswordScreen({navigation,route}) {
+export default function PasswordScreen({navigation}) {
   MultitaskBlur.blur();
   const { colors } = useTheme();
   const [urlInput, setUrlInput] = useState('');
@@ -54,7 +54,19 @@ export default function PasswordScreen({navigation,route}) {
           />
         </View>
         <View style= {{paddingVertical:40, flexDirection:'row', justifyContent:'space-evenly'}}> 
-          <Button mode="contained" color = {colors.primary} >
+          <Button
+          mode="contained"
+          color = {colors.primary}
+          onPress={() => {
+            getPasswordFromServer("altay", "altay.com")
+              .then((pass) => {
+                console.log("pass: " + pass);
+              })
+              .catch((error) => {
+                console.log(error);
+              })
+          }}
+          >
           Get Password
           </Button>
         </View>

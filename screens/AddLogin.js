@@ -4,7 +4,7 @@ import MultitaskBlur from "react-native-multitask-blur";
 import { Appbar,TextInput, Button } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
 
-
+import { savePasswordShares } from '../password/save';
 
 
 export default function AddLogin({navigation,route}) {
@@ -56,7 +56,17 @@ export default function AddLogin({navigation,route}) {
         
         
         <View style= {{paddingVertical:40, flexDirection:'row', justifyContent:'space-evenly'}}> 
-          <Button mode="contained" color = {colors.primary} >
+          <Button
+          mode="contained"
+          color = {colors.primary}
+          onPress={() => {
+            try{
+              savePasswordShares("altay", "altay.com", "gizli");
+            }catch(error){
+              console.log(error);
+            }
+          }}
+          >
           Save
           </Button>
         </View>
