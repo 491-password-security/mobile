@@ -1,5 +1,5 @@
 import React,{ useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View,useColorScheme, Pressable } from 'react-native';
+import {SafeAreaView, StyleSheet, View,useColorScheme, Pressable, NativeModules } from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import {ThemeContext} from '../theme-context';
 import * as Keychain from "react-native-keychain";
@@ -8,6 +8,11 @@ import { Appbar,Button ,Switch,Text, Paragraph, Dialog, Portal,List} from 'react
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
+
+//const { AutoFill } = NativeModule;
+//console.log(NativeModules.AutoFill);
+//const AutoFill = NativeModules.AutoFill;
+NativeModules.AutoFill.increment();
 
 export default function Settings({navigation}) {
   

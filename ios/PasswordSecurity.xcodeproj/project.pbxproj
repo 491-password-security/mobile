@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		03B11F0E2772502B00130648 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B11F0D2772502B00130648 /* AuthenticationServices.framework */; };
+		03B11F2127733D5500130648 /* AutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B11F2027733D5500130648 /* AutoFill.swift */; };
+		03B11F2427733E6100130648 /* AutoFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B11F2327733E6100130648 /* AutoFill.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -20,9 +22,11 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		03B11F0C2772502B00130648 /* PasswordSecurity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = PasswordSecurity.entitlements; path = PasswordSecurity/PasswordSecurity.entitlements; sourceTree = "<group>"; };
 		03B11F0D2772502B00130648 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
-		13B07F961A680F5B00A75B9A /* PasswordSecurity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PasswordSecurity.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03B11F2027733D5500130648 /* AutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFill.swift; sourceTree = "<group>"; };
+		03B11F2227733D8200130648 /* AutoFillKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AutoFillKit-Bridging-Header.h"; sourceTree = "<group>"; };
+		03B11F2327733E6100130648 /* AutoFill.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoFill.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* PasswordSecurity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PasswordSecurity.app; path = vaultrun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = PasswordSecurity/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = PasswordSecurity/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PasswordSecurity/Images.xcassets; sourceTree = "<group>"; };
@@ -52,10 +56,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03B11F142773352300130648 /* AutoFillKit */ = {
+			isa = PBXGroup;
+			children = (
+				03B11F2027733D5500130648 /* AutoFill.swift */,
+				03B11F2227733D8200130648 /* AutoFillKit-Bridging-Header.h */,
+				03B11F2327733E6100130648 /* AutoFill.m */,
+			);
+			path = AutoFillKit;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* PasswordSecurity */ = {
 			isa = PBXGroup;
 			children = (
-				03B11F0C2772502B00130648 /* PasswordSecurity.entitlements */,
+				03B11F142773352300130648 /* AutoFillKit */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -333,6 +347,8 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
+				03B11F2427733E6100130648 /* AutoFill.m in Sources */,
+				03B11F2127733D5500130648 /* AutoFill.swift in Sources */,
 				2FD4AD6A3AF746B18E931183 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
