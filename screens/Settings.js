@@ -102,8 +102,8 @@ export default function Settings({navigation}) {
   
   return (
    <View>
-    <SafeAreaView style={{backgroundColor: colors.appBarColor}}>
-      <Appbar style={{ backgroundColor: colors.appBarColor, }}>
+    <SafeAreaView style={[styles.safeAreaBar, {backgroundColor: colors.appBarColor}]}>
+      <Appbar style={[styles.appBar, {backgroundColor: colors.appBarColor}]}>
         <Appbar.Content title={t("Settings")}/>
       </Appbar>
     </SafeAreaView>
@@ -150,7 +150,7 @@ export default function Settings({navigation}) {
   );
 }
 const styles = StyleSheet.create({
-  button:{
+  button: {
     alignSelf: 'center',
     borderRadius: 8,
     margin: 5,
@@ -161,5 +161,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
-  }
+  },
+
+  appBar: {
+    shadowOpacity: 0, 
+    elevation: 0,
+  },
+
+  safeAreaBar: {
+    shadowOpacity: 1,
+    elevation: 1,
+  },
 })

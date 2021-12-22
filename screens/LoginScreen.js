@@ -151,15 +151,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+
   logoimage: {
     //flex: 1,
     width: '100%',
     height: '60%',
     alignSelf: 'center',
   },
+
   text: {
-    //flex: 1,
-    //backgroundColor:'black',
     color: "black",
     alignSelf: 'center',
     width: '150%',
@@ -167,14 +167,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
   },
+
   name: {
-    //flex: 1,
-    //backgroundColor:'black',
-    //color: "black",
     alignSelf: 'center',
     justifyContent: "center",
-    //width: '150%',
-    //height: 80,
     fontSize: 25,
     fontWeight: "bold",
   },

@@ -20,8 +20,8 @@ export default function PasswordScreen({navigation}) {
 
   return (
     <View useTheme={colors}>
-      <SafeAreaView style={{backgroundColor: colors.appBarColor}}>
-        <Appbar style={{ backgroundColor: colors.appBarColor }}>  
+      <SafeAreaView style={[styles.safeAreaBar, {backgroundColor: colors.appBarColor}]}>
+        <Appbar style={[styles.appBar, {backgroundColor: colors.appBarColor}]}>
           <Appbar.Content title={t("Home")}/>
         </Appbar>
       </SafeAreaView>
@@ -76,10 +76,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+
   text: {
     alignSelf: 'center',
     width: '100%',
     height: 80,
     fontSize: 12,
-  }
+  },
+
+  appBar: {
+    shadowOpacity: 0, 
+    elevation: 0,
+  },
+
+  safeAreaBar: {
+    shadowOpacity: 1,
+    elevation: 1,
+  },
 });

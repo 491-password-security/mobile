@@ -84,8 +84,8 @@ export default function PasswordGeneratorScreen({navigation}){
 
   return(
     <View>
-      <SafeAreaView style={{backgroundColor:colors.appBarColor}}>
-        <Appbar style={{backgroundColor:colors.appBarColor}}>  
+      <SafeAreaView style={[styles.safeAreaBar, {backgroundColor: colors.appBarColor}]}>
+        <Appbar style={[styles.appBar, {backgroundColor: colors.appBarColor}]}>
           <Appbar.Content title={t("Password Generator")}/>
         </Appbar>
       </SafeAreaView>
@@ -149,31 +149,45 @@ export default function PasswordGeneratorScreen({navigation}){
 }
 
 const styles = StyleSheet.create({
-    randomPassword:{
-        alignSelf: 'center',
-        fontSize: 18,
-        padding: 8,
-        margin: 5,
-    },
-    button:{
-      alignSelf: 'center',
-      borderRadius: 8,
-      margin: 5,
-      width: "85%"
-    },
-    option:{
-      flexDirection:"row",
-      alignItems:"flex-end",
-      marginTop: 8,
-    },
-    optionText:{
-      flex:1,
-      alignSelf: 'center', 
-      marginLeft: 10, 
-      fontSize: 17, 
-      fontWeight: 'bold',
-    },
-    switch:{
-      marginRight: 8,
-    }
+  randomPassword:{
+    alignSelf: 'center',
+    fontSize: 18,
+    padding: 8,
+    margin: 5,
+  },
+
+  button:{
+    alignSelf: 'center',
+    borderRadius: 8,
+    margin: 5,
+    width: "85%"
+  },
+
+  option:{
+    flexDirection:"row",
+    alignItems:"flex-end",
+    marginTop: 8,
+  },
+
+  optionText:{
+    flex:1,
+    alignSelf: 'center', 
+    marginLeft: 10, 
+    fontSize: 17, 
+    fontWeight: 'bold',
+  },
+
+  switch:{
+    marginRight: 8,
+  },
+
+  appBar: {
+    shadowOpacity: 0, 
+    elevation: 0,
+  },
+
+  safeAreaBar: {
+    shadowOpacity: 1,
+    elevation: 1,
+  },
 });
