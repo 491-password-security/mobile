@@ -1,17 +1,4 @@
 {
-  "expo": {
-    "name": "PasswordSecurity",
-    "slug": "PasswordSecurity",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "android": {
-      "package": "com.mobile.vaultrun"
-    },
-    "ios": {
-      "bundleIdentifier": "com.mobile.vaultrun"
-    }
-  },
-  "name": "PasswordSecurity"
+  "name": "VaultRun",
+  "displayName": "VaultRun"
 }

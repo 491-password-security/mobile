@@ -22,7 +22,7 @@ export default function PasswordScreen({navigation}) {
     <View useTheme={colors}>
       <SafeAreaView style={[styles.safeAreaBar, {backgroundColor: colors.appBarColor}]}>
         <Appbar style={[styles.appBar, {backgroundColor: colors.appBarColor}]}>
-          <Appbar.Content title={t("Home")}/>
+          <Appbar.Content title={t("Vault")}/>
         </Appbar>
       </SafeAreaView>
       <View>

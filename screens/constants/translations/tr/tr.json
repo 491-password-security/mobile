@@ -31,7 +31,12 @@
     "Password Copied to Clipboard":"Şifre Kopyalandı",
     "Login with Biometrics": "Biyometrik ile Giriş",
     "Enabled" : "Aktif",
-    "Disabled" : "Devre Dışı"
+    "Disabled" : "Devre Dışı",
+    "OK" : "Tamam",
+    "Invalid Master Password" : "Hatalı Ana Şifre",
+    "Biometric Authentication not supported on device" : "Cihazda Biyometrik Doğrulama Yok",
+    "Biometric record not found" : "Biyometrik Kayıt Bulunamadı",
+    "Register biometric data in device settings" : "Cihaz ayarlarından biyometrik verinizi kaydedin"
     
   }
 }

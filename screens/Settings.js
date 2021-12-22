@@ -8,7 +8,6 @@ import { Appbar,Button ,Switch,Text, Paragraph, Dialog, Portal,List} from 'react
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
-import * as LocalAuthentication from 'expo-local-authentication';
 
 
 const alertComponent = (title, mess, btnText, btnFunc) => {
@@ -80,7 +79,7 @@ export default function Settings({navigation}) {
   const [biometricsEnabled, setBiometricsEnabled] = useState(false);
   
   const enableBiometrics = async (enable) => {
-    if(enable){
+    /*if(enable){
       // Check if hardware supports biometrics
       const isBiometricAvailable = await LocalAuthentication.hasHardwareAsync();
       //console.log(isBiometricAvailable);
@@ -88,9 +87,9 @@ export default function Settings({navigation}) {
       // Fallback to default authentication method (password) if Fingerprint is not available
       if (!isBiometricAvailable){
         return alertComponent(
-          'Biometric Authentication not supported on device',
+          t('Biometric Authentication not supported on device'),
           '',
-          'OK',
+          t('OK'),
           () => {}
         );
       }
@@ -103,9 +102,9 @@ export default function Settings({navigation}) {
       const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
       if (!savedBiometrics){
         return alertComponent(
-          'Biometric record not found',
-          'Register biometric data in device settings',
-          'OK',
+          t('Biometric record not found'),
+          t('Register biometric data in device settings'),
+          t('OK'),
           () => {}
         );
       }
@@ -118,7 +117,7 @@ export default function Settings({navigation}) {
     }
 
     await AsyncStorage.setItem('EnabledBiometrics', enable);
-    setBiometricsEnabled(enable)
+    setBiometricsEnabled(enable)*/
   }
   
   return (
@@ -193,3 +192,6 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
 })
+
+
+
