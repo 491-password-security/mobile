@@ -19,9 +19,6 @@ export default function Settings({navigation}) {
   const {t, i18n} = useTranslation();
   
 
-
-
-
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
   const handleLogout = async()=>{
@@ -90,24 +87,6 @@ export default function Settings({navigation}) {
   };
 
 
-  const setLanguagueTurkish= async ()=>{
-    changeLanguage('tr');
-    try {
-      await AsyncStorage.setItem('Language', 'tr');
-    } catch (e) {
-      // saving error
-    }
-  }
-
-  const setLanguagueEnglish= async ()=>{
-    changeLanguage('en');
-    try {
-      await AsyncStorage.setItem('Language', 'en');
-    } catch (e) {
-      // saving error
-    }
-  }
-
   const allLanguages = ['en', 'tr'];
   const setLanguage = async (lang) => {
     if(!(allLanguages.includes(lang))){
@@ -122,25 +101,6 @@ export default function Settings({navigation}) {
     }
 
   }
-
-
-  /*const getLanguage = async () => {
-    try {
-      const savedLanguage = await AsyncStorage.getItem('Language');
-      if(savedLanguage !== null) {
-        return savedLanguage; 
-      }
-    } catch(e) {
-      console.log(e);
-    }
-  }
-
-
-  getLanguage().then((savedLanguage) => {
-    i18n
-      .changeLanguage(savedLanguage)
-  }); */
-
 
 
   
