@@ -74,40 +74,31 @@ export default function LoginScreen({navigation, props}) {
   return (
     <View style={styles.container}>
       <SafeAreaView>
-      <View style={{ flex: 2}} > 
       <Image style={styles.logoimage} source={require('../assets/vault3.png')} />
-      <View style= {{paddingVertical:20}}/> 
-      <Text style={[styles.name, {color: colors.switchColor}]}>
+      </SafeAreaView>
+      <Text style={[styles.name, {color: colors.switchColor}, {paddingVertical:50} ]}>
       VaultRun
       </Text>
-     
-      </View>
-      <View style={{ flex: 1}} > 
-      
         <TextInput
         //selectionColor = {colors.primary}
-        style ={[styles.text, {backgroundColor: colors.textInput}]}
+        style ={[styles.text, {backgroundColor: colors.textInput}, {margin:30}]}
         underlineColor={colors.text}
         activeUnderlineColor= {colors.text}
         label = {t("Master Password")}
         placeholder = {t("Enter Master Password")}
         secureTextEntry={hidePass ? true : false}
         left={<TextInput.Icon name="lock"/>}
-        right={<TextInput.Icon name="eye" onPress={() => setHidePass(!hidePass)} />}
+        right={<TextInput.Icon name={(hidePass) ? "eye-off" : "eye"} onPress={() => setHidePass(!hidePass)} />}
         onChangeText={input => setPassInput(input)}
         value={passInput}
        />
-       </View>
-       <View style={{ flex: 1}} > 
-        <Button mode="contained" color = {colors.primary} onPress ={handleLogin} >
+        <Button mode="contained" color = {colors.primary} margin = {30} onPress ={handleLogin} >
         {t("Login")}
         </Button>
-        <View style= {{paddingVertical:10}}/> 
         <Button mode="contained" color = {colors.primary} onPress ={handleBiometricAuth} >
        {t("Login with Biometrics")}
       </Button>
-      </View>
-      </SafeAreaView>
+     
     </View>
   );
 }
@@ -115,24 +106,25 @@ export default function LoginScreen({navigation, props}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    //justifyContent: "center",
     alignItems: "center"
   },
 
   logoimage: {
     //flex: 1,
-    width: '100%',
-    height: '60%',
-    alignSelf: 'center',
+    width: 200,
+    height: 200,
+   //alignSelf: 'center',
   },
 
   text: {
     color: "black",
     alignSelf: 'center',
-    width: '150%',
+    width: '100%',
     height: 80,
     fontSize: 12,
     fontWeight: "bold",
+    //paddingBottom:50,
   },
 
   name: {
