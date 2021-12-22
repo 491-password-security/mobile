@@ -1,5 +1,5 @@
 import React,{ useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View,useColorScheme } from 'react-native';
+import {SafeAreaView, StyleSheet, View,useColorScheme, Pressable } from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import {ThemeContext} from '../theme-context';
 import * as Keychain from "react-native-keychain";
@@ -102,7 +102,7 @@ export default function Settings({navigation}) {
 
   }
 
-
+  const [biometricsEnabled, setBiometricsEnabled] = useState(false);
   
   return (
    <View>
@@ -112,10 +112,13 @@ export default function Settings({navigation}) {
       </Appbar>
     </SafeAreaView>
       <View style={{}}>
-        <View style={{ flexDirection: "row", margin: 20, }}>
-          <Text style={{ alignSelf: 'center', color: colors.text, flex: 20}}>{t("Enable Biometric Login")}</Text>
-          <Switch color = {colors.switchColor} value={isSwitchOn} onValueChange={onToggleSwitch} />
-        </View>
+        <Pressable onPress={() => {setBiometricsEnabled(!biometricsEnabled)}}>
+          <View style={{ flexDirection: "row", margin: 20, }}>
+            <Text style={{ alignSelf: 'center', color: colors.text, flex: 1}}>{t("Enable Biometric Login")}</Text>
+            <Text>{(biometricsEnabled) ? "Enabled" : "Disabled"}</Text>
+            {/*<Switch color = {colors.switchColor} value={isSwitchOn} onValueChange={onToggleSwitch} />*/}
+          </View>
+        </Pressable>
         <List.Section >
       <List.Accordion
       style ={{backgroundColor:colors.background}}

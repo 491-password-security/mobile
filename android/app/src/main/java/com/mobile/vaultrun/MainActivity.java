@@ -1,4 +1,4 @@
-package com.passwordsecurity;
+package com.mobile.vaultrun;
 
 import android.os.Bundle;
 
