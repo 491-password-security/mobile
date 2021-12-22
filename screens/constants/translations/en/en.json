@@ -31,7 +31,11 @@
     "Password Copied to Clipboard":"Password Copied to Clipboard",
     "Login with Biometrics": "Login with Biometrics",
     "Enabled" : "Enabled",
-    "Disabled" : "Disabled"
+    "Disabled" : "Disabled",
+    "OK" : "OK",
+    "Invalid Master Password" : "Invalid Master Password",
+    "Biometric Authentication not supported on device" : "Biometric Authentication not supported on device",
+    "Biometric record not found" : "Biometric record not found"
     
   }
 }

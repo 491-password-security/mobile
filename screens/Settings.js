@@ -88,9 +88,9 @@ export default function Settings({navigation}) {
       // Fallback to default authentication method (password) if Fingerprint is not available
       if (!isBiometricAvailable){
         return alertComponent(
-          'Biometric Authentication not supported on device',
+          t('Biometric Authentication not supported on device'),
           '',
-          'OK',
+          t('OK'),
           () => {}
         );
       }
@@ -103,9 +103,9 @@ export default function Settings({navigation}) {
       const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
       if (!savedBiometrics){
         return alertComponent(
-          'Biometric record not found',
-          'Register biometric data in device settings',
-          'OK',
+          t('Biometric record not found'),
+          t('Register biometric data in device settings'),
+          t('OK'),
           () => {}
         );
       }

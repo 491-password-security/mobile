@@ -10,6 +10,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
 
+const passedRegex = RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");//Minimum eight characters, at least one letter and one number
+
 const alertComponent = (title, mess, btnText, btnFunc) => {
   return Alert.alert(title, mess, [
     {
@@ -18,6 +20,8 @@ const alertComponent = (title, mess, btnText, btnFunc) => {
     },
   ]);
 };
+
+//hvuvAS123#$
 
 export default function LoginScreen({navigation, props}) {
   MultitaskBlur.blur();
@@ -29,7 +33,16 @@ export default function LoginScreen({navigation, props}) {
 
   const handleLogin = async () => {
     // login api call here
+    if(!passedRegex.test(passInput)){
+      return alertComponent(
+        t("Invalid Master Password"),
+        t("Password must contain Minimum eight characters, at least one lowercase letter, one uppercase letter, one symbol, and one number"),
+        t("OK"),
+        () => {}
+      )
+    }
     global.masterPass = passInput;
+    setPassInput("");
     navigation.navigate('Home');
   }
 
@@ -81,8 +94,8 @@ export default function LoginScreen({navigation, props}) {
         secureTextEntry={hidePass ? true : false}
         left={<TextInput.Icon name="lock"/>}
         right={<TextInput.Icon name="eye" onPress={() => setHidePass(!hidePass)} />}
-        onChangeText={passInput => setPassInput(passInput)}
-        defaultValue={passInput}
+        onChangeText={input => setPassInput(input)}
+        value={passInput}
        />
        </View>
        <View style={{ flex: 1}} > 
