@@ -1,108 +1,62 @@
 import React,{ useState, useEffect}  from 'react';
-import {StyleSheet, View ,Image,SafeAreaView} from 'react-native';
+import {StyleSheet, View ,Image, SafeAreaView, Alert} from 'react-native';
 import * as LocalAuthentication from 'expo-local-authentication';
 import MultitaskBlur from "react-native-multitask-blur";
 import * as Keychain from "react-native-keychain";
 import { useTheme } from '@react-navigation/native';
 import { TextInput,Button,Text } from 'react-native-paper';
-var crypto = require('crypto-helper-ku');
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
 
+const alertComponent = (title, mess, btnText, btnFunc) => {
+  return Alert.alert(title, mess, [
+    {
+      text: btnText,
+      onPress: btnFunc,
+    },
+  ]);
+};
 
-export default function LoginScreen({navigation,props}) {
+export default function LoginScreen({navigation, props}) {
   MultitaskBlur.blur();
   const [passInput, setPassInput] = useState('');
   const { colors } = useTheme();
   const [hidePass, setHidePass] = useState(true);
-  global.isBioSwitchOn = false;
 
   const {t, i18n} = useTranslation();
 
   const handleLogin = async () => {
     // login api call here
     global.masterPass = passInput;
-    const username = "local";
     navigation.navigate('Home');
   }
 
-
-  const [isBiometricSupported, setIsBiometricSupported] = useState(false);
-
-  // Check if hardware supports biometrics
-  useEffect(() => {
-    (async () => {
-      const compatible = await LocalAuthentication.hasHardwareAsync();
-      setIsBiometricSupported(compatible);
-    })();
-  });
-
-  const fallBackToDefaultAuth = () => {
-    console.log('fall back to password authentication');
-  };
-
-  const alertComponent = (title, mess, btnTxt, btnFunc) => {
-    return Alert.alert(title, mess, [
-      {
-        text: btnTxt,
-        onPress: btnFunc,
-      },
-    ]);
-  };
+  
   const handleBiometricAuth = async () => {
-    // Check if hardware supports biometrics
-    const isBiometricAvailable = await LocalAuthentication.hasHardwareAsync();
-
-    // Fallback to default authentication method (password) if Fingerprint is not available
-    if (!isBiometricAvailable)
-      return alertComponent(
-        'Please enter your password',
-        'Biometric Authentication not supported',
-        'OK',
-        () => fallBackToDefaultAuth()
-      );
-          // Check Biometrics types available (Fingerprint, Facial recognition, Iris recognition)
-    let supportedBiometrics;
-    if (isBiometricAvailable)
-      supportedBiometrics = await LocalAuthentication.supportedAuthenticationTypesAsync();
-
-    // Check Biometrics are saved locally in user's device
-    const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
-    if (!savedBiometrics)
-      return alertComponent(
-        'Biometric record not found',
-        'Please login with your password',
-        'OK',
-        () => fallBackToDefaultAuth()
-      );
+    const enabledBiometrics = await AsyncStorage.getItem('EnabledBiometrics');
+    if(!enabledBiometrics){
+      //console.log("not enabled");
+      return alertComponent('Biometric Login isn\'t Enabled', 'Enable biometric login from app settings', 'OK', () => {});
+      
+    }
 
     // Authenticate use with Biometrics (Fingerprint, Facial recognition, Iris recognition)
-
-    const credentials = await Keychain.getGenericPassword();
-    if (!credentials) 
-      return alertComponent(
-        'No Password Saved',
-        () => fallBackToDefaultAuth()
-      );
-
-
     const biometricAuth = await LocalAuthentication.authenticateAsync({
       promptMessage: 'Login with Biometrics',
       cancelLabel: 'Cancel',
       disableDeviceFallback: true,
     });
+
     // Log the user in on success
-    if (biometricAuth) 
-    console.log('success');
-    masterPass = credentials.masterPass;
-    navigation.navigate('PasswordScreen', { name: 'PasswordScreen' });
+    if (biometricAuth){
+      const credentials = await Keychain.getGenericPassword();
+      console.log('success');
+      global.masterPass = credentials.masterPass;
+      navigation.navigate('PasswordScreen', { name: 'PasswordScreen' });
+    } 
   };
-/*
-if(isBioSwitchOn == true){  Asynch storagedan almali
- handleBiometricAuth();
-}
-*/
 
   return (
     <View style={styles.container}>

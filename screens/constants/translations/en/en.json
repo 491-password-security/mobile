@@ -29,7 +29,9 @@
     "Light Theme":"Light Theme",
     "Logout":"Logout",
     "Password Copied to Clipboard":"Password Copied to Clipboard",
-    "Login with Biometrics": "Login with Biometrics"
+    "Login with Biometrics": "Login with Biometrics",
+    "Enabled" : "Enabled",
+    "Disabled" : "Disabled"
     
   }
 }

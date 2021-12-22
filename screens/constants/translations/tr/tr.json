@@ -19,7 +19,7 @@
     "Length":"Uzunluk",
     "Password":"Şifre",
     "Save":"Kaydet",
-    "Enable Biometric Login":"FaceID Etkinleştir",
+    "Enable Biometric Login":"Biyometrik Giriş Etkinleştir",
     "Languages":"Diller",
     "English":"İngilizce",
     "Turkish":"Türkçe",
@@ -29,7 +29,9 @@
     "Light Theme":"Açık Tema",
     "Logout":"Cıkış",
     "Password Copied to Clipboard":"Şifre Kopyalandı",
-    "Login with Biometrics": "FaceID ile Giriş Yapın"
+    "Login with Biometrics": "Biyometrik ile Giriş",
+    "Enabled" : "Aktif",
+    "Disabled" : "Devre Dışı"
     
   }
 }

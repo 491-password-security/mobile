@@ -26,15 +26,6 @@ export default function PasswordGeneratorScreen({navigation}){
   const [includeSymbols, setIncludeSymbols] = useState(true)
 
   const getCharList = () => {
-    if (
-      !includeUppercase &&
-      !includeLowercase &&
-      !includeNumbers &&
-      !includeSymbols
-    ) {
-      //notify('You must Select atleast one option', true)
-      return;
-    }
     let characterList = ''
 
     if (includeLowercase) {
@@ -54,7 +45,6 @@ export default function PasswordGeneratorScreen({navigation}){
     }
 
     return characterList;
-    //setPasswd(createPassword(characterList))
   }
 
   const handleGeneratePassword = () => {
@@ -76,11 +66,13 @@ export default function PasswordGeneratorScreen({navigation}){
   const [passwd, setPasswd] = useState(createPassword(getCharList()));
 
   const setOption = (optionFunc, arg) => {
+    var n = includeNumbers + includeSymbols + includeUppercase + includeLowercase;
+    if(n === 1 && !arg){
+      return;
+    }
     optionFunc(arg);
     handleGeneratePassword();
   }
-
-
 
   return(
     <View>

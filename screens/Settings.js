@@ -1,5 +1,5 @@
 import React,{ useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View,useColorScheme, Pressable } from 'react-native';
+import {SafeAreaView, StyleSheet, View,useColorScheme, Pressable, Alert } from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import {ThemeContext} from '../theme-context';
 import * as Keychain from "react-native-keychain";
@@ -8,6 +8,17 @@ import { Appbar,Button ,Switch,Text, Paragraph, Dialog, Portal,List} from 'react
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
+import * as LocalAuthentication from 'expo-local-authentication';
+
+
+const alertComponent = (title, mess, btnText, btnFunc) => {
+  return Alert.alert(title, mess, [
+    {
+      text: btnText,
+      onPress: btnFunc,
+    },
+  ]);
+};
 
 export default function Settings({navigation}) {
   
@@ -15,46 +26,14 @@ export default function Settings({navigation}) {
   const { setTheme, theme } = React.useContext(ThemeContext);
   const { colors } = useTheme();
   const systemTheme = useColorScheme();
-
   const {t, i18n} = useTranslation();
   
-
-  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
   const handleLogout = ()=>{
     masterPass = '';
     navigation.navigate('LoginScreen');
   }
 
-  const handleOffBio = async()=>{
-    const logout = await Keychain.resetGenericPassword();
-    masterPass = '';
-    //console.log(masterPass);
-  }
-
-  const handleOnBio = async () => {
-    // login api call here
-    const username = "local";
-    const credentials = await Keychain.getGenericPassword();
-    console.log("saved");
-    //await Keychain.resetGenericPassword();
-    if (!credentials){
-      await Keychain.setGenericPassword(username, masterPass);
-      console.log("saved");
-    }
-
-  }
-  const onToggleSwitch = async ()=>{
-    setIsSwitchOn(!isSwitchOn);
-    if(isSwitchOn){
-      handleOffBio();
-      isBioSwitchOn = false;
-    }
-    else{
-      handleOnBio();
-      isBioSwitchOn = true;
-    }
-  }
 
   const allThemes = ['sys', 'light', 'dark'];
 
@@ -100,6 +79,48 @@ export default function Settings({navigation}) {
 
   const [biometricsEnabled, setBiometricsEnabled] = useState(false);
   
+  const enableBiometrics = async (enable) => {
+    if(enable){
+      // Check if hardware supports biometrics
+      const isBiometricAvailable = await LocalAuthentication.hasHardwareAsync();
+      //console.log(isBiometricAvailable);
+
+      // Fallback to default authentication method (password) if Fingerprint is not available
+      if (!isBiometricAvailable){
+        return alertComponent(
+          'Biometric Authentication not supported on device',
+          '',
+          'OK',
+          () => {}
+        );
+      }
+
+      // Check Biometrics types available (Fingerprint, Facial recognition, Iris recognition)
+      //let supportedBiometrics = await LocalAuthentication.supportedAuthenticationTypesAsync();
+      //console.log(supportedBiometrics);
+
+      // Check Biometrics are saved locally in user's device
+      const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
+      if (!savedBiometrics){
+        return alertComponent(
+          'Biometric record not found',
+          'Register biometric data in device settings',
+          'OK',
+          () => {}
+        );
+      }
+
+      const username = "local";
+      const credentials = await Keychain.getGenericPassword();
+      if (!credentials){
+        await Keychain.setGenericPassword(username, masterPass);
+      }
+    }
+
+    await AsyncStorage.setItem('EnabledBiometrics', enable);
+    setBiometricsEnabled(enable)
+  }
+  
   return (
    <View>
     <SafeAreaView style={[styles.safeAreaBar, {backgroundColor: colors.appBarColor}]}>
@@ -108,11 +129,10 @@ export default function Settings({navigation}) {
       </Appbar>
     </SafeAreaView>
       <View style={{}}>
-        <Pressable onPress={() => {setBiometricsEnabled(!biometricsEnabled)}}>
+        <Pressable onPress={() => {enableBiometrics(!biometricsEnabled);}}>
           <View style={{ flexDirection: "row", margin: 20, }}>
             <Text style={{ alignSelf: 'center', color: colors.text, flex: 1}}>{t("Enable Biometric Login")}</Text>
-            <Text style={{color: colors.switchColor}}> {(biometricsEnabled) ? "Enabled" : "Disabled"}</Text>
-            {/*<Switch color = {colors.switchColor} value={isSwitchOn} onValueChange={onToggleSwitch} />*/}
+            <Text style={{color: (biometricsEnabled) ? colors.switchColor : colors.text}}> {(biometricsEnabled) ? t("Enabled") : t("Disabled")}</Text>
           </View>
         </Pressable>
         <List.Section >
