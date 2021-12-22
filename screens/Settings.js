@@ -21,22 +21,18 @@ export default function Settings({navigation}) {
 
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
-  const handleLogout = async()=>{
-    const logout = await Keychain.resetGenericPassword();
-    console.log({logout});
+  const handleLogout = ()=>{
     masterPass = '';
-    //console.log(masterPass);
     navigation.navigate('LoginScreen');
   }
 
-  const handleOFFBIO = async()=>{
+  const handleOffBio = async()=>{
     const logout = await Keychain.resetGenericPassword();
     masterPass = '';
     //console.log(masterPass);
-    //navigation.navigate('LoginScreen');
   }
 
-  const handleLogin = async () => {
+  const handleOnBio = async () => {
     // login api call here
     const username = "local";
     const credentials = await Keychain.getGenericPassword();
@@ -51,11 +47,11 @@ export default function Settings({navigation}) {
   const onToggleSwitch = async ()=>{
     setIsSwitchOn(!isSwitchOn);
     if(isSwitchOn){
-      handleOFFBIO();
+      handleOffBio();
       isBioSwitchOn = false;
     }
     else{
-      handleLogin();
+      handleOnBio();
       isBioSwitchOn = true;
     }
   }
@@ -106,8 +102,8 @@ export default function Settings({navigation}) {
   
   return (
    <View>
-    <SafeAreaView style={{backgroundColor: colors.primary}}>
-      <Appbar style={{ backgroundColor: colors.primary, }}>
+    <SafeAreaView style={{backgroundColor: colors.appBarColor}}>
+      <Appbar style={{ backgroundColor: colors.appBarColor, }}>
         <Appbar.Content title={t("Settings")}/>
       </Appbar>
     </SafeAreaView>
@@ -115,13 +111,14 @@ export default function Settings({navigation}) {
         <Pressable onPress={() => {setBiometricsEnabled(!biometricsEnabled)}}>
           <View style={{ flexDirection: "row", margin: 20, }}>
             <Text style={{ alignSelf: 'center', color: colors.text, flex: 1}}>{t("Enable Biometric Login")}</Text>
-            <Text>{(biometricsEnabled) ? "Enabled" : "Disabled"}</Text>
+            <Text style={{color: colors.switchColor}}> {(biometricsEnabled) ? "Enabled" : "Disabled"}</Text>
             {/*<Switch color = {colors.switchColor} value={isSwitchOn} onValueChange={onToggleSwitch} />*/}
           </View>
         </Pressable>
         <List.Section >
       <List.Accordion
       style ={{backgroundColor:colors.background}}
+        left={props => <List.Icon {...props} icon="translate" color ={colors.switchColor} />}
         title={t("Languages")}
         titleStyle ={{color:colors.text}}
         >
@@ -132,6 +129,7 @@ export default function Settings({navigation}) {
     <List.Section >
       <List.Accordion
         style ={{backgroundColor:colors.background}}
+        left={props => <List.Icon {...props} icon="theme-light-dark" color ={colors.switchColor} />}
         title={t("Themes")}
         titleStyle ={{color:colors.text}}
         >

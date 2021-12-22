@@ -12,16 +12,14 @@ import './constants/i18n';
 export default function AddLogin({navigation,route}) {
   MultitaskBlur.blur();
   const { colors } = useTheme();
-  const [hidePass, setHidePass] = useState(true);
-  const [urlInput, setUrlInput] = useState('');
-  const [passwordInput, setPasswordInput] = useState('');
-  const [usernameInput, setUsernameInput] = useState('');
   const {t, i18n} = useTranslation();
-
+  const [usernameInput, setUsernameInput] = useState('');
+  const [urlInput, setUrlInput] = useState('');
+ 
   return (
     <View useTheme={colors}>
-      <SafeAreaView style={{backgroundColor: colors.primary}}>
-        <Appbar style={{ backgroundColor: colors.primary }}>  
+      <SafeAreaView style={{backgroundColor: colors.appBarColor}}>
+        <Appbar style={{ backgroundColor: colors.appBarColor }}>  
           <Appbar.Content title={t("Add Login")}/>
         </Appbar>
       </SafeAreaView>
@@ -35,17 +33,6 @@ export default function AddLogin({navigation,route}) {
             label = {t("Username")}
             placeholder = {t("Enter Your Username")}
           />
-          <View style= {{paddingVertical:10}}></View>
-          <TextInput
-        style ={[styles.text, {backgroundColor: colors.textInput}]}
-        underlineColor={colors.primary}
-        activeUnderlineColor= {colors.primary}
-        label = {t("Password")}
-        placeholder = {t("Enter Password")}
-        secureTextEntry={hidePass ? true : false}
-        left={<TextInput.Icon name="lock"/>}
-        right={<TextInput.Icon name="eye" onPress={() => setHidePass(!hidePass)} />}
-       />
             <View style= {{paddingVertical:10}}></View>
           <TextInput
             style ={[styles.text, {backgroundColor: colors.textInput}]}

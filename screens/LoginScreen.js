@@ -4,7 +4,7 @@ import * as LocalAuthentication from 'expo-local-authentication';
 import MultitaskBlur from "react-native-multitask-blur";
 import * as Keychain from "react-native-keychain";
 import { useTheme } from '@react-navigation/native';
-import { TextInput,Button } from 'react-native-paper';
+import { TextInput,Button,Text } from 'react-native-paper';
 var crypto = require('crypto-helper-ku');
 
 import { useTranslation } from 'react-i18next';
@@ -108,14 +108,20 @@ if(isBioSwitchOn == true){  Asynch storagedan almali
     <View style={styles.container}>
       <SafeAreaView>
       <View style={{ flex: 2}} > 
-      <Image style={styles.logoimage} source={require('../assets/lock2.png')} />
+      <Image style={styles.logoimage} source={require('../assets/vault3.png')} />
+      <View style= {{paddingVertical:20}}/> 
+      <Text style={[styles.name, {color: colors.switchColor}]}>
+      VaultRun
+      </Text>
+     
       </View>
       <View style={{ flex: 1}} > 
+      
         <TextInput
         //selectionColor = {colors.primary}
         style ={[styles.text, {backgroundColor: colors.textInput}]}
-        underlineColor={colors.primary}
-        activeUnderlineColor= {colors.primary}
+        underlineColor={colors.text}
+        activeUnderlineColor= {colors.text}
         label = {t("Master Password")}
         placeholder = {t("Enter Master Password")}
         secureTextEntry={hidePass ? true : false}
@@ -159,6 +165,17 @@ const styles = StyleSheet.create({
     width: '150%',
     height: 80,
     fontSize: 12,
+    fontWeight: "bold",
+  },
+  name: {
+    //flex: 1,
+    //backgroundColor:'black',
+    //color: "black",
+    alignSelf: 'center',
+    justifyContent: "center",
+    //width: '150%',
+    //height: 80,
+    fontSize: 25,
     fontWeight: "bold",
   },
 });

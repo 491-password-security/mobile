@@ -84,8 +84,8 @@ export default function PasswordGeneratorScreen({navigation}){
 
   return(
     <View>
-      <SafeAreaView style={{backgroundColor:colors.primary}}>
-        <Appbar style={{backgroundColor:colors.primary}}>  
+      <SafeAreaView style={{backgroundColor:colors.appBarColor}}>
+        <Appbar style={{backgroundColor:colors.appBarColor}}>  
           <Appbar.Content title={t("Password Generator")}/>
         </Appbar>
       </SafeAreaView>

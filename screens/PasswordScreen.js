@@ -20,8 +20,8 @@ export default function PasswordScreen({navigation}) {
 
   return (
     <View useTheme={colors}>
-      <SafeAreaView style={{backgroundColor: colors.primary}}>
-        <Appbar style={{ backgroundColor: colors.primary }}>  
+      <SafeAreaView style={{backgroundColor: colors.appBarColor}}>
+        <Appbar style={{ backgroundColor: colors.appBarColor }}>  
           <Appbar.Content title={t("Home")}/>
         </Appbar>
       </SafeAreaView>
