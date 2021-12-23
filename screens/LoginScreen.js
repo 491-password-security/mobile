@@ -34,12 +34,6 @@ export default function LoginScreen({navigation, props}) {
 
   const handleLogin = async () => {
     /*
-    const b = await NativeBiometrics.checkPermissions();
-    console.log(b);
-    const a = await NativeBiometrics.checkAvailability();
-    console.log(a);
-    const c = await NativeBiometrics.authenticate();
-    console.log(c);
     // login api call here
     
     if(!passedRegex.test(passInput)){
@@ -59,7 +53,7 @@ export default function LoginScreen({navigation, props}) {
   
   const handleBiometricAuth = async () => {
     const enabledBiometrics = await AsyncStorage.getItem('EnabledBiometrics');
-    if(!(enabledBiometrics == (true).toString())){
+    if(!(enabledBiometrics === (true).toString())){
       //console.log("not enabled");
       return alertComponent('Biometric Login isn\'t Enabled', 'Enable biometric login from app settings', 'OK', () => {});
       
