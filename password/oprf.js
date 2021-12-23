@@ -22,6 +22,7 @@ function beginOPRFRound(socket, bits, index) {
     if (count == 3) {
       console.log("Done");
       //load_msg.textContent = "Done!"
+      loadingIndicatorSave = false;
       count = 0;
     }
   }

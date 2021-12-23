@@ -9,7 +9,7 @@ let getEndPoint = "/get-password-share";
 let portList = [":5001", ":5002", ":5003"];
 
 
-export const getPasswordFromServer = (userName, siteUrl, passwd) => {
+export const getPasswordFromServer = (userName, siteUrl, passwd,_callback) => {
   let shares = [];
   crypto.util.addEntropy(Math.random());
   crypto.util.addEntropy(Math.random());
@@ -37,6 +37,9 @@ export const getPasswordFromServer = (userName, siteUrl, passwd) => {
           if (shares.length >= 2) {
             const rv = crypto.ss.combine(shares);
             console.log("password : " + rv);
+            console.log(shares);
+            lastReceivedPass = rv;
+            _callback();
           }
         })
     });

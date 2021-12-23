@@ -14,6 +14,7 @@ const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'
 const specialCharacters = "!'^+%&/()=?_#$½§{[]}|;:>÷`<.*-@é"
 
+
 export default function PasswordGeneratorScreen({navigation}){
   MultitaskBlur.blur();
   const { colors } = useTheme();
@@ -24,6 +25,7 @@ export default function PasswordGeneratorScreen({navigation}){
   const [includeLowercase, setIncludeLowercase] = useState(true)
   const [includeNumbers, setIncludeNumbers] = useState(true)
   const [includeSymbols, setIncludeSymbols] = useState(true)
+  
 
   const getCharList = () => {
     let characterList = ''
@@ -43,6 +45,11 @@ export default function PasswordGeneratorScreen({navigation}){
     if (includeSymbols) {
       characterList = characterList + specialCharacters
     }
+      randPasswordLength = passwordLength;
+      randIncludeLowerCase = includeLowercase;
+      randIncludeUppercase = includeUppercase;
+      randIncludeNumber = includeNumbers;
+      randIncludeSymbol = includeSymbols;
 
     return characterList;
   }
@@ -55,7 +62,7 @@ export default function PasswordGeneratorScreen({navigation}){
   const createPassword = (characterList) => {
     let password = ''
     const characterListLength = characterList.length
-
+    
     for (let i = 0; i < passwordLength; i++) {
       const characterIndex = Math.round(Math.random() * characterListLength)
       password = password + characterList.charAt(characterIndex)
@@ -73,6 +80,8 @@ export default function PasswordGeneratorScreen({navigation}){
     optionFunc(arg);
     handleGeneratePassword();
   }
+
+  
 
   return(
     <View>

@@ -1,8 +1,10 @@
 import React,{ useState, useEffect, NativeModules}  from 'react';
 import {StyleSheet, View , SafeAreaView} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
-import { Appbar,TextInput, Button } from 'react-native-paper';
+import { Appbar,TextInput, Button,ActivityIndicator, Colors } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
+import Clipboard from '@react-native-community/clipboard';
+import Snackbar from 'react-native-snackbar';
 
 import { savePasswordShares } from '../password/save';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +17,7 @@ export default function AddLogin({navigation,route}) {
   const {t, i18n} = useTranslation();
   const [usernameInput, setUsernameInput] = useState('');
   const [urlInput, setUrlInput] = useState('');
+  //const [loadingIndicatorSave, setLoadingIndicatorSave] = useState(false)
  
   return (
     <View useTheme={colors}>
@@ -32,6 +35,10 @@ export default function AddLogin({navigation,route}) {
             left={<TextInput.Icon name="account"/>}
             label = {t("Username")}
             placeholder = {t("Enter Your Username")}
+            autoCapitalize='none'
+            autoCorrect={false}
+            onChangeText={input => setUsernameInput(input)}
+            value={usernameInput}
           />
             <View style= {{paddingVertical:10}}></View>
           <TextInput
@@ -41,29 +48,34 @@ export default function AddLogin({navigation,route}) {
             left={<TextInput.Icon name="link"/>}
             label = {t("URL")}
             placeholder = {t("Enter URL")}
+            autoCapitalize='none'
+            autoCorrect={false}
+            onChangeText={input => setUrlInput(input)}
+            value={urlInput}
           />
         </View>
         
-        
+
         <View style= {{paddingVertical:40, flexDirection:'row', justifyContent:'space-evenly'}}> 
           <Button
           mode="contained"
           color = {colors.primary}
           onPress={() => {
-            savePasswordShares("altay", "altay.com", "gizli");
-            /*
-              .then(() => {
-                console.log("saved password");
-              })
-              .catch((error) => {
-                console.log(error);
-              })
-              */
+            console.log(usernameInput);
+            console.log(urlInput);
+            const savedPass = savePasswordShares(usernameInput, urlInput, masterPass)
+            Clipboard.setString(savedPass);
+            Snackbar.dismiss();
+            Snackbar.show({text: t("Password Copied to Clipboard \n" + savedPass), duration: 2500, textColor: colors.text, numberOfLines: 2, backgroundColor: colors.background});
+            //savePasswordShares(usernameInput, urlInput, masterPass)
+            
+            console.log(savedPass);
           }}
           >
           {t("Save")}
           </Button>
         </View>
+        <ActivityIndicator animating={false} color={Colors.red800} />
       </View>
     </View>
   );
