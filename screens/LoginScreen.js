@@ -9,6 +9,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
 
+import NativeBiometrics from "../Auth/bio"
+
 const passedRegex = RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");//Minimum eight characters, at least one letter and one number
 
 const alertComponent = (title, mess, btnText, btnFunc) => {
@@ -31,15 +33,18 @@ export default function LoginScreen({navigation, props}) {
   const {t, i18n} = useTranslation();
 
   const handleLogin = async () => {
+    /*
     // login api call here
-    /*if(!passedRegex.test(passInput)){
+    
+    if(!passedRegex.test(passInput)){
       return alertComponent(
         t("Invalid Master Password"),
         t("Password must contain Minimum eight characters, at least one lowercase letter, one uppercase letter, one symbol, and one number"),
         t("OK"),
         () => {}
       )
-    }*/
+    }
+    */
     global.masterPass = passInput;
     setPassInput("");
     navigation.navigate('Home');
@@ -47,27 +52,22 @@ export default function LoginScreen({navigation, props}) {
 
   
   const handleBiometricAuth = async () => {
-    /*const enabledBiometrics = await AsyncStorage.getItem('EnabledBiometrics');
-    if(!enabledBiometrics){
+    const enabledBiometrics = await AsyncStorage.getItem('EnabledBiometrics');
+    if(!(enabledBiometrics === (true).toString())){
       //console.log("not enabled");
       return alertComponent('Biometric Login isn\'t Enabled', 'Enable biometric login from app settings', 'OK', () => {});
       
     }
 
-    // Authenticate use with Biometrics (Fingerprint, Facial recognition, Iris recognition)
-    const biometricAuth = await LocalAuthentication.authenticateAsync({
-      promptMessage: 'Login with Biometrics',
-      cancelLabel: 'Cancel',
-      disableDeviceFallback: true,
-    });
+    const biometricAuth = await NativeBiometrics.authenticate();
 
     // Log the user in on success
     if (biometricAuth){
       const credentials = await Keychain.getGenericPassword();
       console.log('success');
       global.masterPass = credentials.masterPass;
-      navigation.navigate('PasswordScreen', { name: 'PasswordScreen' });
-    } */
+      navigation.navigate('Home');
+    } 
   };
 
   return (
