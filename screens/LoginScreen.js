@@ -1,5 +1,5 @@
 import React,{ useState, useEffect}  from 'react';
-import {StyleSheet, View ,Image, SafeAreaView, Alert} from 'react-native';
+import {StyleSheet, View ,Image, SafeAreaView, Alert, Platform} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import * as Keychain from "react-native-keychain";
 import { useTheme } from '@react-navigation/native';
@@ -58,16 +58,36 @@ export default function LoginScreen({navigation, props}) {
       return alertComponent('Biometric Login isn\'t Enabled', 'Enable biometric login from app settings', 'OK', () => {});
       
     }
+    
+    if(Platform.OS === 'android'){
+      NativeBiometrics.authenticate("title", "subtitle", "desc", "button")
+        .then(async (biometricAuth) => {
+          const credentials = await Keychain.getGenericPassword();
+          console.log('success');
+          global.masterPass = credentials.masterPass;
+          navigation.navigate('Home'); 
+        })
+        .catch((error) => {
+          console.log(Object.values(error))
+          return alertComponent(
+            t('Biometric Authentication  isn\'t avaible'),
+            Object.values(error)[2],
+            t('OK'),
+            () => {}
+          );
+          
+        })
+    }else if(Platform.OS === 'ios'){
+      // Log the user in on success
+      const biometricAuth = await NativeBiometrics.authenticate();
 
-    const biometricAuth = await NativeBiometrics.authenticate();
-
-    // Log the user in on success
-    if (biometricAuth){
-      const credentials = await Keychain.getGenericPassword();
-      console.log('success');
-      global.masterPass = credentials.masterPass;
-      navigation.navigate('Home');
-    } 
+      if (biometricAuth){
+        const credentials = await Keychain.getGenericPassword();
+        console.log('success');
+        global.masterPass = credentials.masterPass;
+        navigation.navigate('Home');
+      }
+    }
   };
 
   return (

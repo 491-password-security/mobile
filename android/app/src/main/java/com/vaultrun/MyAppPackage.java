@@ -20,7 +20,6 @@ public class MyAppPackage implements ReactPackage {
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        modules.add(new CalendarModule(reactContext));
         modules.add(new Biometrics(reactContext));
 
         return modules;

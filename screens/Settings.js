@@ -1,5 +1,5 @@
 import React,{ useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View,useColorScheme, Pressable, Alert, NativeModules } from 'react-native';
+import {SafeAreaView, StyleSheet, View,useColorScheme, Pressable, Alert, Platform} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import {ThemeContext} from '../theme-context';
 import * as Keychain from "react-native-keychain";
@@ -8,17 +8,10 @@ import { Appbar,Button ,Switch,Text, Paragraph, Dialog, Portal,List} from 'react
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
-const { Biometrics } = NativeModules;
 
 import NativeBiometrics from "../Auth/bio"
 
 
-
-/*const TestHandler = async () => {
-    console.log("burasi");
-    let isPermissionAvailable = await Biometrics.hasPermission();
-    console.log(isPermissionAvailable);
-  };*/
 
 const alertComponent = (title, mess, btnText, btnFunc) => {
   return Alert.alert(title, mess, [
@@ -88,70 +81,72 @@ export default function Settings({navigation}) {
 
   const [biometricsEnabled, setBiometricsEnabled] = useState(false);
 
-  AsyncStorage.getItem('EnabledBiometrics').then((enabledBiometrics) => {
-    if((typeof enabledBiometrics) === String){
-      var isTrueSet = (enabledBiometrics === 'true');
-      console.log(isTrueSet);
-      setBiometricsEnabled(isTrueSet);
-    }
-  })
+  const isBiometricsEnabled = () => {
+      AsyncStorage.getItem('EnabledBiometrics').then((enabledBiometrics) => {
+        if(enabledBiometrics === undefined){
+          return;
+        }
+        console.log(enabledBiometrics);
+        setBiometricsEnabled(enabledBiometrics);
+        console.log("a " + biometricsEnabled);
+    });
+  }
 
-  
+  useEffect(() => {
+    isBiometricsEnabled();
+  }, []);
+
   
   const enableBiometrics = async (enable) => {
-    console.log("e1");
     if(enable){
-      const permissions = await NativeBiometrics.checkPermissions();
-      if (!permissions){
-        return alertComponent(
-          t('Requires Permissions for Biometric Login'),
-          '',
-          t('OK'),
-          () => {}
-        );
-      }
+      if(Platform.OS === "ios"){
+        const permissions = await NativeBiometrics.checkPermissions();
+        if (!permissions){
+          return alertComponent(
+            t('Requires Permissions for Biometric Login'),
+            '',
+            t('OK'),
+            () => {}
+          );
+        }
 
-      console.log("e1 end");
+        const isBiometricAvailable = await NativeBiometrics.checkAvailability();
+        if (!isBiometricAvailable){
+          return alertComponent(
+            t('Biometric Authentication not supported on device'),
+            '',
+            t('OK'),
+            () => {}
+          );
+        }
 
-      // Check if hardware supports biometrics
-      const isBiometricAvailable = await NativeBiometrics.checkAvailability();
-      //console.log(isBiometricAvailable);
-
-      // Fallback to default authentication method (password) if Fingerprint is not available
-      if (!isBiometricAvailable){
-        return alertComponent(
-          t('Biometric Authentication not supported on device'),
-          '',
-          t('OK'),
-          () => {}
-        );
-      }
-      console.log("e2");
-
-      // Check Biometrics types available (Fingerprint, Facial recognition, Iris recognition)
-      //let supportedBiometrics = await LocalAuthentication.supportedAuthenticationTypesAsync();
-      //console.log(supportedBiometrics);
-
-      // Check Biometrics are saved locally in user's device
-      /*
-      const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
-      if (!savedBiometrics){
-        return alertComponent(
-          t('Biometric record not found'),
-          t('Register biometric data in device settings'),
-          t('OK'),
-          () => {}
-        );
-      }
-      */
-
-      const username = "local";
-      const credentials = await Keychain.getGenericPassword();
-      if (!credentials){
-        await Keychain.setGenericPassword(username, masterPass);
+        const username = "local";
+        const credentials = await Keychain.getGenericPassword();
+        if (!credentials){
+          await Keychain.setGenericPassword(username, masterPass);
+        }
+        
+      }else if(Platform.OS === 'android'){
+        NativeBiometrics.isSensorAvailable()
+          .then(async (avaible) => {
+            console
+            const username = "local";
+            const credentials = await Keychain.getGenericPassword();
+            if (!credentials){
+              await Keychain.setGenericPassword(username, masterPass);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            return alertComponent(
+              t('Biometric Authentication not supported on device'),
+              '',
+              t('OK'),
+              () => {}
+            );
+          })
       }
     }
-
     await AsyncStorage.setItem('EnabledBiometrics', enable.toString());
     setBiometricsEnabled(enable)
   }
@@ -198,7 +193,7 @@ export default function Settings({navigation}) {
         {t("Logout")}
         </Button>
 
-        <Button style={styles.button} mode="contained" color = {colors.primary} onPress ={TestHandler} >
+        <Button style={styles.button} mode="contained" color = {colors.primary} >
         {t("Test")}
         </Button>
       </View>
