@@ -32,14 +32,14 @@ export default function LoginScreen({navigation, props}) {
 
   const handleLogin = async () => {
     // login api call here
-    if(!passedRegex.test(passInput)){
+    /*if(!passedRegex.test(passInput)){
       return alertComponent(
         t("Invalid Master Password"),
         t("Password must contain Minimum eight characters, at least one lowercase letter, one uppercase letter, one symbol, and one number"),
         t("OK"),
         () => {}
       )
-    }
+    }*/
     global.masterPass = passInput;
     setPassInput("");
     navigation.navigate('Home');

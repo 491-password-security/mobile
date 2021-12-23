@@ -1,5 +1,5 @@
 import React,{ useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View,useColorScheme, Pressable, Alert } from 'react-native';
+import {SafeAreaView, StyleSheet, View,useColorScheme, Pressable, Alert, NativeModules } from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import {ThemeContext} from '../theme-context';
 import * as Keychain from "react-native-keychain";
@@ -8,7 +8,15 @@ import { Appbar,Button ,Switch,Text, Paragraph, Dialog, Portal,List} from 'react
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
+const { Biometrics } = NativeModules;
 
+
+
+/*const TestHandler = async () => {
+    console.log("burasi");
+    let isPermissionAvailable = await Biometrics.hasPermission();
+    console.log(isPermissionAvailable);
+  };*/
 
 const alertComponent = (title, mess, btnText, btnFunc) => {
   return Alert.alert(title, mess, [
@@ -161,8 +169,11 @@ export default function Settings({navigation}) {
         <Button style={styles.button} mode="contained" color = {colors.primary} onPress ={handleLogout} >
         {t("Logout")}
         </Button>
+
+        <Button style={styles.button} mode="contained" color = {colors.primary} onPress ={TestHandler} >
+        {t("Test")}
+        </Button>
       </View>
-  
     </View>
 
 
