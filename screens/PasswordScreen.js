@@ -1,8 +1,10 @@
 import React, {useState, NativeModules} from 'react';
 import {StyleSheet, View , SafeAreaView} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
-import { Appbar,TextInput, Button } from 'react-native-paper';
+import { Appbar,TextInput, Button,ActivityIndicator, Colors } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
+import Clipboard from '@react-native-community/clipboard';
+import Snackbar from 'react-native-snackbar';
 
 import { getPasswordFromServer } from '../password/get';
 
@@ -15,7 +17,20 @@ export default function PasswordScreen({navigation}) {
   const { colors } = useTheme();
   const [urlInput, setUrlInput] = useState('');
   const [usernameInput, setUsernameInput] = useState('');
+  const [loadingGetPassword, setLoadingGetPassword] = useState(false);
   const {t, i18n} = useTranslation();
+
+  const handleGetPassword =  () => {
+    setLoadingGetPassword(true);
+    getPasswordFromServer(usernameInput,urlInput, masterPass,function() {
+      console.log(lastReceivedPass);
+      Clipboard.setString(lastReceivedPass);
+      Snackbar.dismiss();
+      Snackbar.show({text: t("Password Copied to Clipboard \n" + lastReceivedPass), duration: 2500, textColor: colors.text, numberOfLines: 2, backgroundColor: colors.background});
+      setLoadingGetPassword(false);
+      lastReceivedPass = '';
+  });    
+  }
   
 
   return (
@@ -32,8 +47,12 @@ export default function PasswordScreen({navigation}) {
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
             left={<TextInput.Icon name="account"/>}
+            autoCapitalize='none'
+            autoCorrect={false}
             label = {t("Username")}
             placeholder = {t("Enter Your Username")}
+            onChangeText={input => setUsernameInput(input)}
+            value={usernameInput}
           />
           <View style= {{paddingVertical:10}}></View>
           <TextInput
@@ -41,30 +60,27 @@ export default function PasswordScreen({navigation}) {
             underlineColor={colors.text}
             activeUnderlineColor= {colors.text}
             left={<TextInput.Icon name="link"/>}
+            autoCapitalize='none'
+            autoCorrect={false}
             label = {t("URL")}
             placeholder = {t("Enter URL")}
+            onChangeText={input => setUrlInput(input)}
+            value={urlInput}
           />
         </View>
         <View style= {{paddingVertical:40, flexDirection:'row', justifyContent:'space-evenly'}}> 
           <Button
           mode="contained"
           color = {colors.primary}
-          onPress={() => {
-            getPasswordFromServer("altay", "altay.com", "gizli");
-            /*
-
-              .then((pass) => {
-                console.log("pass: " + pass);
-              })
-              .catch((error) => {
-                console.log(error);
-              })
-              */
+          onPress={() => {  
+            handleGetPassword();
           }}
           >
           {t("Get Password")}
           </Button>
+         
         </View>
+        <ActivityIndicator animating={loadingGetPassword} color={colors.switchColor} />
       </View>
     </View>
   );

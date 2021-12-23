@@ -22,7 +22,6 @@ const alertComponent = (title, mess, btnText, btnFunc) => {
   ]);
 };
 
-//hvuvAS123#$
 
 export default function LoginScreen({navigation, props}) {
   MultitaskBlur.blur();
@@ -33,6 +32,15 @@ export default function LoginScreen({navigation, props}) {
   const {t, i18n} = useTranslation();
 
   const handleLogin = async () => {
+    //FOR THE RANDOM GENERATED PASSWORD FOR ADDLOGIN.
+    global.randPasswordLength = 14;
+    global.randIncludeLowerCase = true;
+    global.randIncludeUppercase = true;
+    global.randIncludeSymbol = true;
+    global.randIncludeNumber = true;
+    global.lastReceivedPass = '';
+    //global.loadingIndicatorSave = false;
+    //
     /*
     // login api call here
     
@@ -65,6 +73,11 @@ export default function LoginScreen({navigation, props}) {
           const credentials = await Keychain.getGenericPassword();
           console.log('success');
           global.masterPass = credentials.masterPass;
+          global.randPasswordLength = 14;
+          global.randIncludeLowerCase = true;
+          global.randIncludeUppercase = true;
+          global.randIncludeSymbol = true;
+          global.randIncludeNumber = true;
           navigation.navigate('Home'); 
         })
         .catch((error) => {
@@ -81,12 +94,20 @@ export default function LoginScreen({navigation, props}) {
       // Log the user in on success
       const biometricAuth = await NativeBiometrics.authenticate();
 
+      // Log the user in on success
       if (biometricAuth){
         const credentials = await Keychain.getGenericPassword();
         console.log('success');
         global.masterPass = credentials.masterPass;
+        //FOR THE RANDOM GENERATED PASSWORD FOR ADDLOGIN.
+        global.randPasswordLength = 14;
+        global.randIncludeLowerCase = true;
+        global.randIncludeUppercase = true;
+        global.randIncludeSymbol = true;
+        global.randIncludeNumber = true;
+        //
         navigation.navigate('Home');
-      }
+      } 
     }
   };
 
@@ -149,7 +170,7 @@ const styles = StyleSheet.create({
   name: {
     alignSelf: 'center',
     justifyContent: "center",
-    fontSize: 25,
+    fontSize: 40,
     fontWeight: "bold",
   },
 });

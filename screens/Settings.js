@@ -188,7 +188,6 @@ export default function Settings({navigation}) {
         <List.Item title={t("Light Theme")}   titleStyle ={{color:colors.text}} onPress = {() => {changeTheme('light')}}/>
       </List.Accordion>
     </List.Section>
-
         <Button style={styles.button} mode="contained" color = {colors.primary} onPress ={handleLogout} >
         {t("Logout")}
         </Button>
