@@ -191,10 +191,6 @@ export default function Settings({navigation}) {
         <Button style={styles.button} mode="contained" color = {colors.primary} onPress ={handleLogout} >
         {t("Logout")}
         </Button>
-
-        <Button style={styles.button} mode="contained" color = {colors.primary} >
-        {t("Test")}
-        </Button>
       </View>
     </View>
 
