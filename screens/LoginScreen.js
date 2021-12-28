@@ -11,7 +11,8 @@ import './constants/i18n';
 
 import NativeBiometrics from "../Auth/bio"
 
-const passedRegex = RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");//Minimum eight characters, at least one letter and one number
+//const passedRegex = RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");//Minimum eight characters, at least one letter and one number
+const passedRegex = RegExp("^(?=.*?[0-9]).{4,}$");//Minimum eight characters, at least one letter and one number
 
 const alertComponent = (title, mess, btnText, btnFunc) => {
   return Alert.alert(title, mess, [
@@ -22,6 +23,7 @@ const alertComponent = (title, mess, btnText, btnFunc) => {
   ]);
 };
 
+//123Asd!@aaSS4
 
 export default function LoginScreen({navigation, props}) {
   MultitaskBlur.blur();
@@ -40,9 +42,6 @@ export default function LoginScreen({navigation, props}) {
     global.randIncludeNumber = true;
     global.lastReceivedPass = '';
     //global.loadingIndicatorSave = false;
-    //
-    /*
-    // login api call here
     
     if(!passedRegex.test(passInput)){
       return alertComponent(
@@ -52,7 +51,7 @@ export default function LoginScreen({navigation, props}) {
         () => {}
       )
     }
-    */
+
     global.masterPass = passInput;
     setPassInput("");
     navigation.navigate('Home');

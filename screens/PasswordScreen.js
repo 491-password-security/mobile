@@ -1,4 +1,4 @@
-import React, {useState, NativeModules} from 'react';
+import React, {useState, } from 'react';
 import {StyleSheet, View , SafeAreaView} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import { Appbar,TextInput, Button,ActivityIndicator, Colors,List } from 'react-native-paper';
@@ -10,6 +10,8 @@ import { getPasswordFromServer } from '../password/get';
 
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
+import { ScrollView } from 'react-native-gesture-handler';
+
 
 var recentUsernames = [];
 var recentURL = [];
@@ -27,11 +29,22 @@ export default function PasswordScreen({navigation}) {
     setLoadingGetPassword(true);
     recentUsernames.push(usernameInput);
     recentURL.push(urlInput);
-    getPasswordFromServer(usernameInput,urlInput, masterPass,function() {
+    getPasswordFromServer(usernameInput, urlInput, masterPass, () => {
       console.log(lastReceivedPass);
       Clipboard.setString(lastReceivedPass);
       Snackbar.dismiss();
-      Snackbar.show({text: t("Password Copied to Clipboard \n" + lastReceivedPass), duration: 2500, textColor: colors.text, numberOfLines: 2, backgroundColor: colors.background});
+      Snackbar.show({
+        text: t("Password Copied to Clipboard \n" + lastReceivedPass),
+        duration: 2500,
+        textColor: colors.text,
+        numberOfLines: 1,
+        backgroundColor: colors.background,
+        action:{
+          text: t('Dismiss'),
+          textColor: colors.switchColor,
+          onPress: () => {Snackbar.dismiss()}
+        }
+      });
       setLoadingGetPassword(false);
       lastReceivedPass = '';
   });    
@@ -49,35 +62,19 @@ export default function PasswordScreen({navigation}) {
   
   const handleGetRecentsRender =  () => {
     renderLoop = [];
-      if(recentUsernames.length <= 4){
-        for (let i = 0; i < recentUsernames.length; i++) {
-          renderLoop.push(
-           <View key={i}>
-           <List.Item
-                  title = {recentUsernames[i]}
-                  titleStyle ={{color:colors.text}}
-                   description= {recentURL[i]}
-                   descriptionStyle = {{color:colors.text}}
-                   left={props => <List.Icon {...props} icon="history" color ={colors.switchColor}/>}
-         />
-           </View>
-         );
-       }
-       }
-       else{
-        for (let i = 0; i < 4; i++) {
-          renderLoop.push(
-             <View key={i}>
-             <List.Item
-                    title = {recentUsernames[recentUsernames.length-i-1]}
-                    titleStyle ={{color:colors.text}}
-                     description= {recentURL[recentURL.length-i-1]}
-                     descriptionStyle = {{color:colors.text}}
-                     left={props => <List.Icon {...props} icon="history" color ={colors.switchColor}/>}
-           />
-             </View>
-           );
-       }
+    
+    for (let i = 0; i < Math.min(recentUsernames.length, 4); i++) {
+      renderLoop.push(
+        <View key={i}>
+          <List.Item
+            title = {recentUsernames[i]}
+            titleStyle ={{color:colors.text}}
+            description= {recentURL[i]}
+            descriptionStyle = {{color:colors.text}}
+            left={props => <List.Icon {...props} icon="history" color ={colors.switchColor}/>}
+          />
+        </View>
+      );
     }
   }
   
@@ -137,9 +134,9 @@ export default function PasswordScreen({navigation}) {
           {t("Get Recents")}
           </Button>
         </View>
-        <ActivityIndicator animating={loadingGetPassword} color={colors.switchColor} />
-        {(isVisible) && renderLoop}
-      </View>
+          <ActivityIndicator animating={loadingGetPassword} color={colors.switchColor} />
+          {(isVisible) && renderLoop}
+        </View>
     </View>
   );
 }

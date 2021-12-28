@@ -5,16 +5,23 @@ const Number = crypto.Number;
 const MOD = crypto.constants.MOD;
 const GEN = crypto.constants.GEN;
 
+export const hashUserData = (userName, siteUrl) => {
+  crypto.util.addEntropy(Math.random());
+  crypto.util.addEntropy(Math.random());
+  const hashed = crypto.util.hash(userName + siteUrl);
+  return hashed;
+}
+
+export const consts = {
+  base_url : "http://46.101.218.223",
+  saveEndPoint : "/save-password-share",
+  getEndPoint : "/get-password-share",
+  portList : [":5001", ":5002", ":5003"],
+}
+
 var count = 0;
 
 function beginOPRFRound(socket, bits, index) {
-  // if (index % 64 == 0 && index >= 64) {
-  //   alert(index)
-  // }
-  //var elem = document.getElementById("myBar");
-  //var load_msg = document.querySelector(".load-msg");
-  //load_msg.textContent = "Distributing shares..."
-  //elem.style.width = 100*(index/256) + "%";
   let receiver = new crypto.ObliviousTransferReceiver(parseInt(bits[index]), null, null);
   socket.emit("oprfRound", index)
   if (index == 255) {

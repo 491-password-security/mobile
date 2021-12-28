@@ -109,7 +109,18 @@ export default function PasswordGeneratorScreen({navigation}){
           onPress={() => {
             Clipboard.setString(passwd);
             Snackbar.dismiss()
-            Snackbar.show({text: t("Password Copied to Clipboard"), duration: 800, textColor: colors.text, numberOfLines: 1, backgroundColor: colors.background});
+            Snackbar.show({
+              text: t("Password Copied to Clipboard \n" + lastReceivedPass),
+              duration: 2500,
+              textColor: colors.text,
+              numberOfLines: 1,
+              backgroundColor: colors.background,
+              action:{
+                text: t('Dismiss'),
+                textColor: colors.switchColor,
+                onPress: () => {Snackbar.dismiss()}
+              }
+            });
           }}
         >
           {t("Copy Password")}

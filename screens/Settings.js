@@ -1,9 +1,9 @@
-import React,{ useState, useEffect} from 'react';
+import React,{ useState, useEffect, } from 'react';
 import {SafeAreaView, StyleSheet, View,useColorScheme, Pressable, Alert, Platform} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import {ThemeContext} from '../theme-context';
 import * as Keychain from "react-native-keychain";
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useIsFocused } from '@react-navigation/native';
 import { Appbar,Button ,Switch,Text, Paragraph, Dialog, Portal,List} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
@@ -81,20 +81,18 @@ export default function Settings({navigation}) {
 
   const [biometricsEnabled, setBiometricsEnabled] = useState(false);
 
-  const isBiometricsEnabled = () => {
-      AsyncStorage.getItem('EnabledBiometrics').then((enabledBiometrics) => {
-        if(enabledBiometrics === undefined){
+  const isBiometricsEnabled = async () => {
+      await AsyncStorage.getItem('EnabledBiometrics').then((enabledBiometrics) => {
+        if(enabledBiometrics === null){
           return;
         }
-        console.log(enabledBiometrics);
         setBiometricsEnabled(enabledBiometrics);
-        console.log("a " + biometricsEnabled);
     });
   }
 
   useEffect(() => {
-    isBiometricsEnabled();
-  }, []);
+    isBiometricsEnabled(); 
+  })
 
   
   const enableBiometrics = async (enable) => {
@@ -162,7 +160,10 @@ export default function Settings({navigation}) {
         <Pressable onPress={() => {enableBiometrics(!biometricsEnabled);}}>
           <View style={{ flexDirection: "row", margin: 20, }}>
             <Text style={{ alignSelf: 'center', color: colors.text, flex: 1}}>{t("Enable Biometric Login")}</Text>
-            <Text style={{color: (biometricsEnabled) ? colors.switchColor : colors.text}}> {(biometricsEnabled) ? t("Enabled") : t("Disabled")}</Text>
+            <Text style={{color: (biometricsEnabled) ? colors.switchColor : colors.text}}> { 
+                  (biometricsEnabled) ? t("Enabled") : t("Disabled")
+              }
+            </Text>
           </View>
         </Pressable>
         <List.Section >

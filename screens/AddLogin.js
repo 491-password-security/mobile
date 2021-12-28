@@ -66,8 +66,18 @@ export default function AddLogin({navigation,route}) {
             const savedPass = savePasswordShares(usernameInput, urlInput, masterPass)
             Clipboard.setString(savedPass);
             Snackbar.dismiss();
-            Snackbar.show({text: t("Password Copied to Clipboard \n" + savedPass), duration: 2500, textColor: colors.text, numberOfLines: 2, backgroundColor: colors.background});
-            //savePasswordShares(usernameInput, urlInput, masterPass)
+            Snackbar.show({
+              text: t("Password Copied to Clipboard \n" + lastReceivedPass),
+              duration: 2500,
+              textColor: colors.text,
+              numberOfLines: 1,
+              backgroundColor: colors.background,
+              action:{
+                text: t('Dismiss'),
+                textColor: colors.switchColor,
+                onPress: () => {Snackbar.dismiss()}
+              }
+            });
             
             console.log(savedPass);
           }}
