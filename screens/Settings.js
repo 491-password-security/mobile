@@ -152,12 +152,12 @@ export default function Settings({navigation}) {
   }
   
   return (
-   <View>
-    <SafeAreaView style={[styles.safeAreaBar, {backgroundColor: colors.appBarColor}]}>
-      <Appbar style={[styles.appBar, {backgroundColor: colors.appBarColor}]}>
-        <Appbar.Content title={t("Settings")}/>
-      </Appbar>
-    </SafeAreaView>
+    <View>
+      <SafeAreaView style={[styles.safeAreaBar, {backgroundColor: colors.appBarColor}]}>
+        <Appbar style={[styles.appBar, {backgroundColor: colors.appBarColor}]}>
+          <Appbar.Content title={t("Settings")}/>
+        </Appbar>
+      </SafeAreaView>
       <View style={{}}>
         <Pressable onPress={() => {enableBiometrics(!biometricsEnabled);}}>
           <View style={{ flexDirection: "row", margin: 20, }}>
@@ -166,32 +166,31 @@ export default function Settings({navigation}) {
           </View>
         </Pressable>
         <List.Section >
-      <List.Accordion
-      style ={{backgroundColor:colors.background}}
-        left={props => <List.Icon {...props} icon="translate" color ={colors.switchColor} />}
-        title={t("Languages")}
-        titleStyle ={{color:colors.text}}
-        >
-        <List.Item title={t("English")}   titleStyle ={{color:colors.text}} onPress={() => {setLanguage('en')}}/>
-        <List.Item title={t("Turkish")}   titleStyle ={{color:colors.text}} onPress={() => {setLanguage('tr')}} />
-      </List.Accordion>
-    </List.Section>
-    <List.Section >
-      <List.Accordion
-        style ={{backgroundColor:colors.background}}
-        left={props => <List.Icon {...props} icon="theme-light-dark" color ={colors.switchColor} />}
-        title={t("Themes")}
-        titleStyle ={{color:colors.text}}
-        >
-        <List.Item title={t("System Theme")}   titleStyle ={{color:colors.text}} onPress = {() => {changeTheme('sys')}}/>
-        <List.Item title={t("Dark Theme")}   titleStyle ={{color:colors.text}} onPress = {() => {changeTheme('dark')}}/>
-        <List.Item title={t("Light Theme")}   titleStyle ={{color:colors.text}} onPress = {() => {changeTheme('light')}}/>
-      </List.Accordion>
-    </List.Section>
-    <Button style={styles.button} mode="contained" color = {colors.primary} onPress ={handleLogout} >
-    {t("Logout")}
-    </Button>
-        
+          <List.Accordion
+          style ={{backgroundColor:colors.background}}
+            left={props => <List.Icon {...props} icon="translate" color ={colors.switchColor} />}
+            title={t("Languages")}
+            titleStyle ={{color:colors.text}}
+            >
+            <List.Item title={t("English")}   titleStyle ={{color:colors.text}} onPress={() => {setLanguage('en')}}/>
+            <List.Item title={t("Turkish")}   titleStyle ={{color:colors.text}} onPress={() => {setLanguage('tr')}} />
+          </List.Accordion>
+        </List.Section>
+        <List.Section >
+          <List.Accordion
+            style ={{backgroundColor:colors.background}}
+            left={props => <List.Icon {...props} icon="theme-light-dark" color ={colors.switchColor} />}
+            title={t("Themes")}
+            titleStyle ={{color:colors.text}}
+            >
+            <List.Item title={t("System Theme")}   titleStyle ={{color:colors.text}} onPress = {() => {changeTheme('sys')}}/>
+            <List.Item title={t("Dark Theme")}   titleStyle ={{color:colors.text}} onPress = {() => {changeTheme('dark')}}/>
+            <List.Item title={t("Light Theme")}   titleStyle ={{color:colors.text}} onPress = {() => {changeTheme('light')}}/>
+          </List.Accordion>
+        </List.Section>
+        <Button style={styles.button} mode="contained" color = {colors.primary} onPress ={handleLogout} >
+        {t("Logout")}
+        </Button>
       </View>
     </View>
 

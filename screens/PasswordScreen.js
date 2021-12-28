@@ -1,7 +1,7 @@
 import React, {useState, NativeModules} from 'react';
 import {StyleSheet, View , SafeAreaView} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
-import { Appbar,TextInput, Button,ActivityIndicator, Colors } from 'react-native-paper';
+import { Appbar,TextInput, Button,ActivityIndicator, Colors,List } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
 import Clipboard from '@react-native-community/clipboard';
 import Snackbar from 'react-native-snackbar';
@@ -11,17 +11,22 @@ import { getPasswordFromServer } from '../password/get';
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
 
-
+var recentUsernames = [];
+var recentURL = [];
+var renderLoop = [];
 export default function PasswordScreen({navigation}) {
   MultitaskBlur.blur();
   const { colors } = useTheme();
   const [urlInput, setUrlInput] = useState('');
   const [usernameInput, setUsernameInput] = useState('');
   const [loadingGetPassword, setLoadingGetPassword] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const {t, i18n} = useTranslation();
 
   const handleGetPassword =  () => {
     setLoadingGetPassword(true);
+    recentUsernames.push(usernameInput);
+    recentURL.push(urlInput);
     getPasswordFromServer(usernameInput,urlInput, masterPass,function() {
       console.log(lastReceivedPass);
       Clipboard.setString(lastReceivedPass);
@@ -31,8 +36,52 @@ export default function PasswordScreen({navigation}) {
       lastReceivedPass = '';
   });    
   }
-  
 
+  const handleGetRecents =  () => {
+    if(loadingGetPassword == false){
+      if(recentURL.length && recentUsernames.length > 0){
+        setIsVisible(!isVisible);
+      }
+      setLoadingGetPassword(false);
+      handleGetRecentsRender();   
+    }
+  }
+  
+  const handleGetRecentsRender =  () => {
+    renderLoop = [];
+      if(recentUsernames.length <= 4){
+        for (let i = 0; i < recentUsernames.length; i++) {
+          renderLoop.push(
+           <View key={i}>
+           <List.Item
+                  title = {recentUsernames[i]}
+                  titleStyle ={{color:colors.text}}
+                   description= {recentURL[i]}
+                   descriptionStyle = {{color:colors.text}}
+                   left={props => <List.Icon {...props} icon="history" color ={colors.switchColor}/>}
+         />
+           </View>
+         );
+       }
+       }
+       else{
+        for (let i = 0; i < 4; i++) {
+          renderLoop.push(
+             <View key={i}>
+             <List.Item
+                    title = {recentUsernames[recentUsernames.length-i-1]}
+                    titleStyle ={{color:colors.text}}
+                     description= {recentURL[recentURL.length-i-1]}
+                     descriptionStyle = {{color:colors.text}}
+                     left={props => <List.Icon {...props} icon="history" color ={colors.switchColor}/>}
+           />
+             </View>
+           );
+       }
+    }
+  }
+  
+  
   return (
     <View useTheme={colors}>
       <SafeAreaView style={[styles.safeAreaBar, {backgroundColor: colors.appBarColor}]}>
@@ -78,9 +127,18 @@ export default function PasswordScreen({navigation}) {
           >
           {t("Get Password")}
           </Button>
-         
+          <Button
+          mode="contained"
+          color = {colors.primary}
+          onPress={() => {  
+            handleGetRecents();
+          }}
+          >
+          {t("Get Recents")}
+          </Button>
         </View>
         <ActivityIndicator animating={loadingGetPassword} color={colors.switchColor} />
+        {(isVisible) && renderLoop}
       </View>
     </View>
   );
