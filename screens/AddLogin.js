@@ -9,6 +9,7 @@ import Snackbar from 'react-native-snackbar';
 import { savePasswordShares } from '../password/save';
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
+import { addRecent } from './recents';
 
 
 export default function AddLogin({navigation,route}) {
@@ -61,9 +62,10 @@ export default function AddLogin({navigation,route}) {
           mode="contained"
           color = {colors.primary}
           onPress={() => {
-            console.log(usernameInput);
-            console.log(urlInput);
-            const savedPass = savePasswordShares(usernameInput, urlInput, masterPass)
+            //console.log(usernameInput);
+            //console.log(urlInput);
+            const savedPass = savePasswordShares(usernameInput, urlInput, masterPass);
+            addRecent(usernameInput, urlInput);
             Clipboard.setString(savedPass);
             Snackbar.dismiss();
             Snackbar.show({
@@ -79,7 +81,7 @@ export default function AddLogin({navigation,route}) {
               }
             });
             
-            console.log(savedPass);
+            //console.log(savedPass);
           }}
           >
           {t("Save")}

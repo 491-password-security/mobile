@@ -3,12 +3,11 @@ import { OPRF, hashUserData, consts } from './utils'
 var crypto = require('crypto-helper-ku')
 
 
-export const getPasswordFromServer = (userName, siteUrl, passwd,_callback) => {
+export const getPasswordFromServer = (userName, siteUrl, passwd, _callback) => {
   let shares = [];
   const hashed = hashUserData(userName, siteUrl);
-  let bits = crypto.codec.hex2Bin(crypto.util.hash(passwd));
   for (let index = 0; index < 2; index++) {
-    OPRF(consts.base_url + consts.portList[index], bits, (oprf_result) => {
+    OPRF(consts.base_url + consts.portList[index], passwd, (oprf_result) => {
       fetch(consts.base_url + consts.portList[index] + consts.getEndPoint + '/' + hashed, {method: 'GET'})
         .then((resp) => {
           return resp.text();
@@ -18,7 +17,7 @@ export const getPasswordFromServer = (userName, siteUrl, passwd,_callback) => {
           const iv = encrypted[1];
           const ciphertext = encrypted[0];
           try{
-            const share = crypto.aes.decrypt(crypto.util.hash(oprf_result.hex), iv, ciphertext);
+            const share = crypto.aes.decrypt(oprf_result, iv, ciphertext);
             shares.push(share);
           }catch (error) {
             console.log(error);

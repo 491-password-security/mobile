@@ -1,5 +1,5 @@
 import React, {useState, } from 'react';
-import {StyleSheet, View , SafeAreaView} from 'react-native';
+import {StyleSheet, View , SafeAreaView, Pressable} from 'react-native';
 import MultitaskBlur from "react-native-multitask-blur";
 import { Appbar,TextInput, Button,ActivityIndicator, Colors,List} from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
@@ -12,11 +12,18 @@ import { useTranslation } from 'react-i18next';
 import './constants/i18n';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import { addRecent, getRecentItems } from './recents';
+import { useEffect } from 'react/cjs/react.development';
+import { useIsFocused } from '@react-navigation/native';
 
-var recentUsernames = [];
-var recentURL = [];
 var renderLoop = [];
+
+
 export default function PasswordScreen({navigation}) {
+  const isFocused = useIsFocused();
+  
+
+
   MultitaskBlur.blur();
   const { colors } = useTheme();
   const [urlInput, setUrlInput] = useState('');
@@ -25,13 +32,30 @@ export default function PasswordScreen({navigation}) {
   const [isVisible, setIsVisible] = useState(true);
   const {t, i18n} = useTranslation();
 
-  const handleGetPassword =  () => {
+  useEffect(() => {
+    //console.log("focused")
+    getRecentItems().then((items) => {
+      global.recents = items;
+      //console.log(items)
+      handleGetRecentsRender(items);
+      //console.log("focused2");
+      //console.log(renderLoop);
+    });
+  });
+
+  const getPassword = (userName, url) => {
     setLoadingGetPassword(true);
     setIsVisible(false);
-    recentUsernames.push(usernameInput);
-    recentURL.push(urlInput);
-    handleGetRecentsRender();
-    getPasswordFromServer(usernameInput, urlInput, masterPass, () => {
+    //recentUsernames.push(usernameInput);
+    //recentURL.push(urlInput);
+    //handleGetRecentsRender();
+    if(userName === '' || url === ''){
+      setLoadingGetPassword(false);
+      setIsVisible(true);
+      lastReceivedPass = '';
+      return;
+    }
+    getPasswordFromServer(userName, url, masterPass, () => {
       console.log(lastReceivedPass);
       Clipboard.setString(lastReceivedPass);
       Snackbar.dismiss();
@@ -50,32 +74,34 @@ export default function PasswordScreen({navigation}) {
       setLoadingGetPassword(false);
       setIsVisible(true);
       lastReceivedPass = '';
-  });    
+    });    
   }
 
-  /*const handleGetRecents =  () => {
-    if(loadingGetPassword == false){
-      if(recentURL.length && recentUsernames.length > 0){
-        setIsVisible(!isVisible);
+  const handleGetPassword = async () => {
+    getPassword(usernameInput, urlInput);
+    addRecent(usernameInput, urlInput).then(() =>{
+        handleGetRecentsRender();
       }
-      setLoadingGetPassword(false);
-      handleGetRecentsRender();   
-    }
-  }*/
-  
-  const handleGetRecentsRender =  () => {
-    renderLoop = [];
+    );
+  }
+
+  const handleGetRecentsRender = (items) => {
+    renderLoop.length = 0;
     
-    for (let i = 0; i < Math.min(recentUsernames.length, 4); i++) {
+    for (let i = 0; i < Math.min(items.length, 4); i++) {
+      console.log('added render loop')
+      const item = items[i];
       renderLoop.push(
-        <View key={i}>
-          <List.Item
-            title = {recentUsernames[i]}
-            titleStyle ={{color:colors.text}}
-            description= {recentURL[i]}
-            descriptionStyle = {{color:colors.text}}
-            left={props => <List.Icon {...props} icon="history" color ={colors.switchColor}/>}
-          />
+        <View key={item.id}>
+          <Pressable onPress={ () => { getPassword() }} >
+            <List.Item
+              title = {item.name}
+              titleStyle ={{color:colors.text}}
+              description= {item.url}
+              descriptionStyle = {{color:colors.text}}
+              left={props => <List.Icon {...props} icon="history" color ={colors.switchColor}/>}
+            />
+          </Pressable>
         </View>
       );
     }

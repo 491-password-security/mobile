@@ -9,68 +9,31 @@ import Snackbar from 'react-native-snackbar';
 import { useTranslation } from 'react-i18next';
 import './constants/i18n';
 
-const numbers = '0123456789'
-const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'
-const specialCharacters = "!'^+%&/()=?_#$½§{[]}|;:>÷`<.*-@é"
-
+import { createPassword } from '../password/generator';
+import '../globals'
 
 export default function PasswordGeneratorScreen({navigation}){
   MultitaskBlur.blur();
   const { colors } = useTheme();
   const {t, i18n} = useTranslation();
 
-  const [passwordLength, setPasswordLength] = useState(14)
-  const [includeUppercase, setIncludeUppercase] = useState(true)
-  const [includeLowercase, setIncludeLowercase] = useState(true)
-  const [includeNumbers, setIncludeNumbers] = useState(true)
-  const [includeSymbols, setIncludeSymbols] = useState(true)
+  const [passwordLength, setPasswordLength] = useState(global.generatorSettings.passwordLength)
+  const [includeUppercase, setIncludeUppercase] = useState(global.generatorSettings.includeUppercase)
+  const [includeLowercase, setIncludeLowercase] = useState(global.generatorSettings.includeLowercase)
+  const [includeNumbers, setIncludeNumbers] = useState(global.generatorSettings.includeNumbers)
+  const [includeSymbols, setIncludeSymbols] = useState(global.generatorSettings.includeSymbols)
   
-
-  const getCharList = () => {
-    let characterList = ''
-
-    if (includeLowercase) {
-      characterList = characterList + lowerCaseLetters
-    }
-
-    if (includeUppercase) {
-      characterList = characterList + upperCaseLetters
-    }
-
-    if (includeNumbers) {
-      characterList = characterList + numbers
-    }
-
-    if (includeSymbols) {
-      characterList = characterList + specialCharacters
-    }
-      randPasswordLength = passwordLength;
-      randIncludeLowerCase = includeLowercase;
-      randIncludeUppercase = includeUppercase;
-      randIncludeNumber = includeNumbers;
-      randIncludeSymbol = includeSymbols;
-
-    return characterList;
-  }
-
+  
   const handleGeneratePassword = () => {
-    const charList = getCharList();
-    setPasswd(createPassword(charList));
+    global.generatorSettings.passwordLength = passwordLength;
+    global.generatorSettings.includeUppercase = includeUppercase;
+    global.generatorSettings.includeLowercase = includeLowercase;
+    global.generatorSettings.includeNumbers = includeNumbers;
+    global.generatorSettings.includeSymbols = includeSymbols;
+    setPasswd(createPassword());
   }
 
-  const createPassword = (characterList) => {
-    let password = ''
-    const characterListLength = characterList.length
-    
-    for (let i = 0; i < passwordLength; i++) {
-      const characterIndex = Math.round(Math.random() * characterListLength)
-      password = password + characterList.charAt(characterIndex)
-    }
-    return password
-  }
-
-  const [passwd, setPasswd] = useState(createPassword(getCharList()));
+  const [passwd, setPasswd] = useState(createPassword());
 
   const setOption = (optionFunc, arg) => {
     var n = includeNumbers + includeSymbols + includeUppercase + includeLowercase;
