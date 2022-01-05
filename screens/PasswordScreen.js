@@ -18,6 +18,8 @@ import { useIsFocused } from '@react-navigation/native';
 
 var renderLoop = [];
 
+let renderCount = 0 ;
+
 
 export default function PasswordScreen({navigation}) {
   const isFocused = useIsFocused();
@@ -34,10 +36,17 @@ export default function PasswordScreen({navigation}) {
 
   useEffect(() => {
     //console.log("focused")
+    if(renderCount==0){
+      setIsVisible(false);
+    }
     getRecentItems().then((items) => {
       global.recents = items;
       //console.log(items)
       handleGetRecentsRender(items);
+      if(renderCount==0){
+        setIsVisible(true);
+        renderCount++;
+      }
       //console.log("focused2");
       //console.log(renderLoop);
     });
